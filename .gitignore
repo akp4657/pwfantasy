@@ -1,0 +1,17 @@
+# Ignore karma config
+karma.conf.js
+
+# Ignore credentials.json file
+credentials.json
+
+# Ignore node_modules directory
+node_modules/
+
+# Ignore .env file
+.env
+
+# Ignore package-lock
+package-lock.json
+
+# Ignore dist
+dist/

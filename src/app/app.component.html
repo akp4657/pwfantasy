@@ -1,0 +1,24 @@
+<div class="container">
+    <!--Navbar on Top-->
+
+    <mat-toolbar>
+        <button class="user-button" *ngIf="isMobile" mat-icon-button aria-label="Menu icon" (click)="toggleMenu()">
+            <div><i class="fa-solid fa-user"></i>Users</div>
+        </button>
+        <img class="logo-img" src="assets/logo.png" routerLink="/">
+    </mat-toolbar>
+      
+
+    <!-- Needed so that the 100px allocated for the top bar is removed when there is no top bar -->
+    <mat-sidenav-container autosize>
+        <mat-sidenav [mode]="isMobile ? 'over' : 'side'" [opened]="isMobile ? 'false' : 'true'">
+            <mat-nav-list>
+                <app-sidebar></app-sidebar>
+            </mat-nav-list>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <router-outlet></router-outlet>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+      
+</div>

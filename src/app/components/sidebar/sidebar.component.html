@@ -1,0 +1,5 @@
+<ng-template #modalHolder></ng-template>
+
+<div class="sidebar-item link" [class.active-item]="router.url === item.url" *ngFor="let item of sidebarItems" (click)="openLoginModal()">
+    <span *ngIf="router.url === item.url">&#62;</span> {{item.name}}
+</div>

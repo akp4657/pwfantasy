@@ -1,0 +1,58 @@
+<div class="modal-holder" (click)="closeModal(true)"></div>
+<div class="modal">
+    <div class="modal-header">
+        Login
+        <img src="{{IMG_X}}" class="x-button" (click)="closeModal(true)">
+    </div>
+    <form class="modal-body">
+        <!-- Conditional Form Content -->
+        <div *ngIf="!isSignup; else signupForm">
+            <div class="half-input">
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" [(ngModel)]="username" required>
+            </div>
+    
+            <div class="half-input">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" [(ngModel)]="password" required>
+            </div>
+
+            <div class="button-holder">
+                <div class="cancel-button" id="cancel" (click)="closeModal(true)">
+                    Cancel
+                </div>
+                <div class="confirm-button" id="submit" (click)="loginSignup()">
+                    Login
+                </div>
+                <div class="switch-button" id="signupSwitch" (click)="toggleSignup()">
+                    Don't have an account? Sign up
+                </div>
+            </div>
+        </div>
+    
+        <!-- Signup Form (Triggered by isSignup) -->
+        <ng-template #signupForm>
+            <div class="half-input">
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" [(ngModel)]="username" required>
+            </div>
+    
+            <div class="half-input">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" [(ngModel)]="password" required>
+            </div>
+    
+            <div class="button-holder">
+                <div class="cancel-button" id="cancel" (click)="closeModal(true)">
+                    Cancel
+                </div>
+                <div class="confirm-button" id="submit" (click)="loginSignup()">
+                    Sign Up
+                </div>
+                <div class="switch-button" id="loginSwitch" (click)="toggleSignup()">
+                    Already have an account? Login
+                </div>
+            </div>
+        </ng-template>
+    </form>
+</div>
