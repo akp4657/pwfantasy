@@ -16,10 +16,13 @@ const userSchema = new mongoose.Schema({
       type: String,
       required: true,
     },
+    Budget: {
+      type: Number,
+      default: 500
+    },
     Team_Name: {
       type: String,
       trim: true,
-      match: /^[A-Za-z0-9_\-.]{1,16}$/,
     },
     Team: [{}],
     Email_List: {

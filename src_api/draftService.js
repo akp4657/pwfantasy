@@ -7,5 +7,4 @@ import mongoose from 'mongoose';
 import { ObjectId } from 'mongodb'
 
 
-// TODO: Display all of the wrestlers in the "wrestlers" collection
 // TODO: Allow a user without a team to draft their wrestlers

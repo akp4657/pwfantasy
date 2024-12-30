@@ -13,12 +13,24 @@ const zoho_headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
 };
 
+// Mongoose DB
+let models = {};
+import _user from '../models/user.js';
+models.user = _user;
+import _wrestler from '../models/wrestler.js';
+models.wrestler = _wrestler;
+
 // TODO: Display the user's wrestlers in a table along with their points
 // This will be default to the user's landing page, but linking through the leaderboard
 // allows others to view that table
 
-// Retrieve Google Sheet Data (This will be a job)
-// TODO: Show and update users based on the Google Sheet
+/**
+ * Updates points from the Zoho sheet. This is a job that will run every 5-10 minutes
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ * @method POST
+ */
 export const updatePoints = async function(req, res) {
     try {
         let response = await axios.post(worksheet, new URLSearchParams({
@@ -26,10 +38,48 @@ export const updatePoints = async function(req, res) {
             worksheet_id: worksheet_id
         }), {headers: zoho_headers})
     
-        console.log(response.data)
-    
+        let filteredData = response.data.records.filter(row => row.Name && row.Name.trim() !== '')
+
+        // Update the DB
+        for(let row of filteredData) {
+            try {
+                await models.wrestler.findOneAndUpdate(
+                    {Name: row.Name},
+                    {
+                        $set: {
+                            Promotion: row.Promotion || '',
+                            Show_Date: row['Show Date'] ? new Date(row['Show Date']) : null,
+                            Commentary: row.Commentary || 0,
+                            Cost: row.Cost,
+                            Return: row.Return || 0,
+                            Interferance: row.Interferance || 0,
+                            Social_Media: row['Social Media'] || 0,
+                            Kickout: row.Kickout || 0,
+                            DQ: row.DQ || 0,
+                            Segment: row.Segment || 0,
+                            Match: row.Match || 0,
+                            Finisher: row.Finisher || 0,
+                            Pin: row.Pin || 0,
+                            Total: row.Total || 0,
+                            Division: row.Division || 0,
+                            Turn: row.Turn || 0,
+                            Gimmick_Change: row['Gimmick Change'] || 0,
+                            Pinfall_Submission_KO: row['Pinfall/Submission/KO "Did they execute the win?"'] || 0,
+                            Crossover: row.Crossover || 0,
+                            Win: row.Win || 0
+                        }
+                    },
+                    {upsert: true, new: true}
+                )
+            } catch(err) {
+                console.log(err)
+                return res.status(500).send({
+                    data: err
+                });
+            }
+        }
         return res.status(200).send({
-            data: response.data
+            success: true
         });
     } catch(err) {
         console.log(err)
@@ -38,4 +88,167 @@ export const updatePoints = async function(req, res) {
         });
     }
 }
-// TODO: Show all of the user's teams in a leaderboard style
+
+/**
+ * Get full wrestler details
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ * @method GET
+ */
+export const getWrestler = async function(req, res) {
+    const wrestlerID = req.query.wrestler
+    try {
+        let wrestler = await models.wrestler.findOne({
+            _id: wrestlerID
+        })
+
+        console.log(wrestler)
+        return res.status(200).send({
+            success: true,
+            data: wrestler
+        });
+    } catch(err) {
+        return res.status(500).send({
+            data: err
+        });
+    }
+}
+
+/**
+ * Edit team, currently just for name
+ * TODO: Add transactions (add/remove wrestlers)
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ * @method PUT
+ */
+export const editTeam = async function(req, res) {
+    const userID = req.body.user
+    const teamName = req.body.team_name
+    try {
+        let user = await models.user.findOne({
+            _id: userID
+        })
+        user.Team_Name = teamName;
+        await user.save();
+        return res.status(200).send({
+            success: true,
+            data: user
+        });
+    } catch(err) {
+        console.log(err)
+        return res.status(500).send({
+            success: false,
+            error: err
+        });
+    }
+}
+
+/**
+ * Draft wrestler to a user's team
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ * @method PUT
+ */
+export const draftWrestler = async function(req, res) {
+    const userID = req.body._id;
+    const wrestlerID = req.body.wrestler_id;
+
+    let user = await models.user.findOne({_id: userID})
+    let wrestler = await models.wrestler.findOne({_id: wrestlerID})
+
+    if((user.Budget - wrestler.Cost) < 0) {
+        return res.status(200).send({
+            success: false,
+            message: "Unable to draft wrestler." 
+        });
+    }
+
+    try {
+        user.Budget -= wrestler.Cost
+        user.Team.push(wrestler)
+        await user.save();
+        return res.status(200).send({
+            success: true,
+            data: user
+        });
+    } catch(err) {
+        console.log(err)
+        return res.status(400).send({
+            success: false,
+            error: err
+        });
+    }
+
+}
+
+/**
+ * Get team for one user. Full breakdown of points
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ * @method GET
+ */
+export const getTeam = async function(req, res) {
+    const userID = req.query.user;
+
+    try {
+        let user = await models.user.findOne({_id: userID});
+
+        return res.status(200).send({
+            success: true,
+            data: {
+                Team_Name: user.Team_Name,
+                Team: user.Team
+            }
+        });
+    } catch(err) {
+        console.log(err);
+        return res.status(400).send({
+            success: false,
+            error: err
+        });
+    }
+    
+}
+
+/**
+ * Display all teams
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ * @method GET
+ */
+export const getAllTeams = async function(req,res) {
+    let users = await models.user.find()
+    let allTeams = []
+
+    try {
+        for(let u of users) {
+            let mappedTeam = u.Team.map(t => ({
+                Name: t.Name,
+                Promotion: t.Promotion,
+                Show_Date: t.Show_Date,
+                Total: t.Total
+            }))
+    
+            allTeams.push({
+                Owner: u.Username,
+                Team_Name: u.Team_Name,
+                Team: mappedTeam
+            })
+        }
+        return res.status(200).send({
+            success: true,
+            data: allTeams
+        });
+    } catch(err) {
+        console.log(err)
+        return res.status(400).send({
+            success: false,
+            error: err
+        });
+    }
+}

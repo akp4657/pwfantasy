@@ -93,8 +93,15 @@ app.use(bodyParser.json({
 // Endpoints for FE
 app.post('/signup', user_service.signup);
 app.post('/login', user_service.login);
-app.get('/sheet', game_service.updatePoints);
+app.post('/sheet', game_service.updatePoints);
+
+app.get('/wrestler', game_service.getWrestler);
+app.get('/team', game_service.getTeam);
+app.get('/team/all', game_service.getAllTeams);
 app.get('/authorize', helper_service.getAccessToken);
+
+app.put('/draft', game_service.draftWrestler);
+app.put('/team', game_service.editTeam);
 
 
 // Optional fallthrough error handler
