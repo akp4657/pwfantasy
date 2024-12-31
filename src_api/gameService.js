@@ -78,6 +78,8 @@ export const updatePoints = async function(req, res) {
                 });
             }
         }
+
+        await updateTeams();
         return res.status(200).send({
             success: true
         });
@@ -86,6 +88,51 @@ export const updatePoints = async function(req, res) {
         return res.status(500).send({
             data: err
         });
+    }
+}
+
+/**
+ * Helper function to update every team to correspond with the points update
+ */
+const updateTeams = async function() {
+    try {
+        const wrestlers = await models.wrestler.find({}).lean();
+        
+        // Create key-value pairs to search
+        // Hashmap! I'd use a Hashmap!!!!!
+        // https://www.youtube.com/watch?v=5bId3N7QZec
+        const wrestlerMap = new Map(
+            wrestlers.map(wrestler => [`${wrestler.Name}-${wrestler.Promotion}`, wrestler])
+        );
+
+        const users = await models.user.find({}, { _id: 1, Team: 1 });
+
+        // Go through each user and create an update operation
+        const bulkOps = users.map(({ _id, Team }) => ({
+            updateOne: {
+                filter: { _id },
+                update: {
+                    $set: {
+                        Team: Team.map(wrestler => {
+                            const key = `${wrestler.Name}-${wrestler.Promotion}`;
+                            if (wrestlerMap.has(key)) {
+                                return { ...wrestlerMap.get(key) };
+                            }
+                            return wrestler;
+                        }),
+                    },
+                },
+            },
+        }));
+
+        // Update all the users at once
+        if (bulkOps.length) {
+            await models.user.bulkWrite(bulkOps);
+        }
+
+        console.log("Teams updated");
+    } catch (err) {
+        console.error("Error updating teams:", err);
     }
 }
 
@@ -118,6 +165,7 @@ export const getWrestler = async function(req, res) {
 /**
  * Edit team, currently just for name
  * TODO: Add transactions (add/remove wrestlers)
+ * TODO: Add a system for benching and active wrestlers
  * @param {*} req 
  * @param {*} res 
  * @returns 
@@ -153,7 +201,7 @@ export const editTeam = async function(req, res) {
  * @method PUT
  */
 export const draftWrestler = async function(req, res) {
-    const userID = req.body._id;
+    const userID = req.body.user;
     const wrestlerID = req.body.wrestler_id;
 
     let user = await models.user.findOne({_id: userID})

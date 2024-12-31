@@ -39,6 +39,7 @@ export const signup = async function(req, res) {
         let new_user = new models.user({
             Username: username,
             Password: hash,
+            Budget: 500,
             Salt: salt,
             Team_Name: '',
             Team: [],
