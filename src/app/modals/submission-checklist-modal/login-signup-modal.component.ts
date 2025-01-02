@@ -6,10 +6,10 @@ import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-edit-user-modal',
-  templateUrl: './edit-user-modal.component.html',
-  styleUrls: ['./edit-user-modal.component.scss']
+  templateUrl: './login-signup-modal.component.html',
+  styleUrls: ['./login-signup-modal.component.scss']
 })
-export class EditUserModalComponent implements OnInit {
+export class LoginSignupModalComponent implements OnInit {
 
   @Output() close = new EventEmitter<any>();
   IMG_X = ConstantsService.IMG_X;
@@ -39,12 +39,18 @@ export class EditUserModalComponent implements OnInit {
     }
 
     this.userService.loginSignup(userObj).subscribe((data: any) => {
+      console.log(data.User)
+      this.saveToStorage(data.User._id) 
       this.closeModal(data)
     })
   }
 
   closeModal(data: any) {
     this.close.emit(data);
+  }
+
+  saveToStorage(user_id: number) {
+    ConstantsService.setUserID(user_id.toString());
   }
 
 }

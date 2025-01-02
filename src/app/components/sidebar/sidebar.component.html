@@ -1,5 +1,7 @@
 <ng-template #modalHolder></ng-template>
 
-<div class="sidebar-item link" [class.active-item]="router.url === item.url" *ngFor="let item of sidebarItems" (click)="openLoginModal()">
-    <span *ngIf="router.url === item.url">&#62;</span> {{item.name}}
-</div>
+<div class="sidebar-item link" >Home</div>
+<div class="sidebar-item link" *ngIf="loggedIn">My Team</div>
+<div class="sidebar-item link" >Wrestlers</div>
+<div class="sidebar-item link" *ngIf="loggedIn" (click)="logout()">Logout</div>
+<div class="sidebar-item link" *ngIf="!loggedIn" (click)="openLoginModal()">Login/Signup</div>

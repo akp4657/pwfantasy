@@ -69,24 +69,33 @@ export const login = async function (req, res) {
                 console.log(dcrypt)
                 if (!dcrypt) {
                     return res.status(401).send({
+                        success: false,
                         message: "Unauthorized 1"
                     });
                 }
                 else {
                     return res.status(200).send({
+                        success: true,
                         User: user
                     });
                 }
             } catch(err) {
                 console.log(err)
                 return res.status(400).send({
+                    success: false,
                     message: err
                 });
             }
+        } else {
+            return res.status(200).send({
+                success: false,
+                message: 'Incorrect Username/Password'
+            });
         }
     }
     else {
         return res.status(400).send({
+            success: false,
             message: "Insufficient parameters"
         });
     }

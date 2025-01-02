@@ -11,7 +11,7 @@ import { TopbarComponent } from './components/topbar/topbar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ReportTableComponent } from './components/report-table/report-table.component';
 import { HttpClientModule } from '@angular/common/http';
-import { EditUserModalComponent } from './modals/submission-checklist-modal/edit-user-modal.component';
+import { LoginSignupModalComponent } from './modals/submission-checklist-modal/login-signup-modal.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -29,7 +29,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     TopbarComponent,
     SidebarComponent,
     ReportTableComponent,
-    EditUserModalComponent
+    LoginSignupModalComponent
   ],
 
   imports: [

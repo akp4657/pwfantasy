@@ -5,6 +5,7 @@ import { NetworkService } from './network.service';
 // Defining session storage constants
 const ACCESS_TOKEN = "x-access-token";
 const USERS = "users";
+const ID = 'id';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,22 @@ export class ConstantsService {
     } else {
       return null;
     }
+  }
+
+  static logout() {
+    sessionStorage.clear();
+  }
+
+  static setUserID(user_id: string) {
+    sessionStorage.setItem(ID, user_id);
+  }
+
+  static getID() {
+    return sessionStorage.getItem(ID);
+  }
+
+  static loggedIn() {
+    return !!sessionStorage.getItem(ID);
   }
 
   static getAccessToken() {

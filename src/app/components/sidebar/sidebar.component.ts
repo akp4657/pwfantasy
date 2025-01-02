@@ -4,12 +4,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { ConstantsService } from 'src/app/services/constants.service';
 import { UserService } from 'src/app/services/user.service';
-import { EditUserModalComponent } from 'src/app/modals/submission-checklist-modal/edit-user-modal.component';
+import { LoginSignupModalComponent } from 'src/app/modals/submission-checklist-modal/login-signup-modal.component';
 
-interface SidebarItem {
-  name: string;
-  url: string;
-}
+
 
 @Component({
   selector: 'app-sidebar',
@@ -17,43 +14,35 @@ interface SidebarItem {
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit{
+  id: any = null;
+  loggedIn: boolean = false;
 
-  // Default Items which will show 'Loading...'
-  sidebarItems: SidebarItem[] = [{
-    name: 'Loading...',
-    url: ''
-  }];
   userService: UserService;
   @ViewChild('modalHolder', { read: ViewContainerRef, static: false })
   modalHolder!: ViewContainerRef;
 
   constructor(userService: UserService, public router: Router) {
     this.userService = userService;
+    this.id = ConstantsService.getID()
   }
 
   ngOnInit(): void {
-    // Fetch all users
-    // this.userService.getUsers().subscribe(async (data: any) => {
-    //   this.sidebarItems = data.users.map((obj: any) => ({
-    //     name: `${obj.First_Name} ${obj.Last_Name}`,
-    //     url: '/user/' + obj.Slack_ID
-    //   }));
-    // });
+    this.loggedIn = ConstantsService.loggedIn();
+    console.log(this.loggedIn)
+    console.log(this.id)
   }
 
-  // Move to a specific user's page
-  login() {
-    // Redirect to the backend's Google Auth endpoint
-    window.location.href = 'http://localhost:3000/auth/google';
-  }
 
   openLoginModal() {
-    const modal = this.modalHolder.createComponent(EditUserModalComponent)
+    const modal = this.modalHolder.createComponent(LoginSignupModalComponent)
 
     modal.instance.close.subscribe(res => {
-      this.modalHolder.clear();
       if(res.success) window.location.reload();
-      //window.location.reload();
     });
+  }
+
+  logout() {
+    ConstantsService.logout();
+    window.location.reload();
   }
 }
