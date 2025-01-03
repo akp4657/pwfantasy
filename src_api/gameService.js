@@ -163,6 +163,28 @@ export const getWrestler = async function(req, res) {
 }
 
 /**
+ * Get all wrestlers
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ * @method GET
+ */
+export const getWrestlers = async function(req, res) {
+    try {
+        let wrestle = await models.wrestler.find({})
+
+        return res.status(200).send({
+            success: true,
+            data: wrestle
+        });
+    } catch(err) {
+        return res.status(500).send({
+            data: err
+        });
+    }
+}
+
+/**
  * Edit team, currently just for name
  * TODO: Add transactions (add/remove wrestlers)
  * TODO: Add a system for benching and active wrestlers

@@ -13,24 +13,27 @@ import { NetworkService } from './network.service';
     constructor(private networkService: NetworkService) {
       this.api_url = ConstantsService.getApiUrl();
     }
-  
-    getUsers() {
-      return this.networkService.httpGet(this.api_url + '/getUsers');
-    }
 
-    loginSignup(userObj: any) {
+    login(userObj: any) {
       const body = {
         username: userObj.username,
         password: userObj.password,
-        email: userObj.email,
-        login: userObj.login
       };
       const url = `${this.api_url}/login`;
       return this.networkService.httpPost(url, body);
     }
 
-    getGoogleLogin() {
-      const url = `${this.api_url}/authenticate/google`
-      return this.networkService.httpGet(url)
+    getUser(userID: any) {
+      const url = `${this.api_url}/user?user_id=${userID}`;
+      return this.networkService.httpGet(url);
+    }
+
+    signup(userObj: any) {
+      const body = {
+        username: userObj.username,
+        password: userObj.password,
+      };
+      const url = `${this.api_url}/signup`;
+      return this.networkService.httpPost(url, body);
     }
   }

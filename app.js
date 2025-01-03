@@ -96,9 +96,11 @@ app.post('/login', user_service.login);
 app.post('/sheet', game_service.updatePoints);
 
 app.get('/wrestler', game_service.getWrestler);
+app.get('/wrestler/all', game_service.getWrestlers);
 app.get('/team', game_service.getTeam);
 app.get('/team/all', game_service.getAllTeams);
 app.get('/authorize', helper_service.getAccessToken);
+app.get('/user', user_service.getUser);
 
 app.put('/draft', game_service.draftWrestler);
 app.put('/team', game_service.editTeam);

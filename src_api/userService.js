@@ -101,6 +101,31 @@ export const login = async function (req, res) {
     }
 }
 
+/**
+ * Get full user details
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ * @method GET
+ */
+export const getUser = async function(req, res) {
+    const userID = req.query.user_id
+    try {
+        let user = await models.user.findOne({
+            _id: userID
+        })
+
+        return res.status(200).send({
+            success: true,
+            data: user
+        });
+    } catch(err) {
+        return res.status(500).send({
+            data: err
+        });
+    }
+}
+
 
 // TODO: Prompt login when coming to the page
 // TODO: Add logout, password reset, and get calls for user

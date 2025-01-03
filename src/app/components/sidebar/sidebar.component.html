@@ -1,7 +1,8 @@
 <ng-template #modalHolder></ng-template>
 
-<div class="sidebar-item link" >Home</div>
-<div class="sidebar-item link" *ngIf="loggedIn">My Team</div>
-<div class="sidebar-item link" >Wrestlers</div>
+<div class="sidebar-item link" (click)="navigateToPage('/')">Home</div>
+<div class="sidebar-item link" *ngIf="loggedIn" (click)="navigateToPage('/myTeam')">My Team</div>
+<div class="sidebar-item link" *ngIf="loggedIn" (click)="navigateToPage('/draft')">Draft</div>
+<div class="sidebar-item link" (click)="navigateToPage('/wrestlers')">Wrestlers</div>
 <div class="sidebar-item link" *ngIf="loggedIn" (click)="logout()">Logout</div>
 <div class="sidebar-item link" *ngIf="!loggedIn" (click)="openLoginModal()">Login/Signup</div>

@@ -30,15 +30,26 @@ export class LoginSignupModalComponent implements OnInit {
     this.isSignup = !this.isSignup;
   }
 
-  loginSignup() {
+  login() {
     let userObj = {
       username: this.username,
       password: this.password,
-      email: this.email,
-      login: 1
     }
 
-    this.userService.loginSignup(userObj).subscribe((data: any) => {
+    this.userService.login(userObj).subscribe((data: any) => {
+      console.log(data.User)
+      this.saveToStorage(data.User._id) 
+      this.closeModal(data)
+    })
+  }
+
+  signup() {
+    let userObj = {
+      username: this.username,
+      password: this.password,
+    }
+
+    this.userService.signup(userObj).subscribe((data: any) => {
       console.log(data.User)
       this.saveToStorage(data.User._id) 
       this.closeModal(data)

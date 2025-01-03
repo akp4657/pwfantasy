@@ -45,4 +45,9 @@ export class SidebarComponent implements OnInit{
     ConstantsService.logout();
     window.location.reload();
   }
+
+  // Move to a specific page
+  navigateToPage(url: string) {
+    this.router.navigate([url]);
+  }
 }
