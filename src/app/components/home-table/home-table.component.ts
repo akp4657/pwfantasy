@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ComponentFactoryResolver, ViewChild, ViewCont
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { GameService } from 'src/app/services/game.service';
+import { MatSort } from '@angular/material/sort';
 import { ConstantsService } from 'src/app/services/constants.service';
 
 @Component({
@@ -11,13 +12,12 @@ import { ConstantsService } from 'src/app/services/constants.service';
 })
 export class HomeTableComponent implements AfterViewInit {
   today_date = new Date().toLocaleDateString();
-  displayedColumns: string[] = ['work yesterday', 'to be done today', 'obstacles'];
+  displayedColumns: string[] = ['owner', 'teamName','total'];
   dataSource = new MatTableDataSource([]);
 
   selectedUserID: any = undefined;
 
-  @ViewChild('modalHolder', { read: ViewContainerRef, static: false })
-  modalHolder!: ViewContainerRef;
+  @ViewChild('modalHolder', { read: ViewContainerRef, static: false }) modalHolder!: ViewContainerRef;
   gameService: GameService;
   user: any;
   id: any = null;
@@ -33,13 +33,8 @@ export class HomeTableComponent implements AfterViewInit {
   }
 
   setLeaderboard() {
-    // this.userService.getUsers().subscribe((data: any) => {
-    //   let user = data.users.filter((u: any) => u.Slack_ID == this.selectedUserID)[0]
-    //   let task_strings = user.Task_String
-    //   this.dataSource = new MatTableDataSource(task_strings);
-    // });
-    this.gameService.getAllTeams().subscribe((data: any) => {
-      console.log(data)
+    this.gameService.getAllTeams().subscribe((res: any) => {
+      this.dataSource = new MatTableDataSource(res.data);
     })
   }
 

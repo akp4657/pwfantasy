@@ -9,27 +9,34 @@
 
 <div class="table-div">
   <table mat-table [dataSource]="dataSource">
-    <ng-container matColumnDef="work yesterday">
+    <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef>
-        work yesterday
+        name
       </th>
-      <td mat-cell *matCellDef="let element"> {{element.work_yesterday}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Name}} </td>
     </ng-container>
   
-    <ng-container matColumnDef="to be done today">
+    <ng-container matColumnDef="promotion">
       <th mat-header-cell *matHeaderCellDef>
-        to be done today
+        promotion
       </th>
-      <td mat-cell *matCellDef="let element"> {{element.work_today}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Promotion}} </td>
     </ng-container>
   
-    <ng-container matColumnDef="obstacles">
+    <ng-container matColumnDef="division">
       <th mat-header-cell *matHeaderCellDef>
-        obstacles
+        division
       </th>
-      <td mat-cell *matCellDef="let element"> {{element.obstacles}} </td>
+      <td mat-cell *matCellDef="let element"> {{element.Division}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="total">
+      <th mat-header-cell *matHeaderCellDef>
+        season total
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.Total}} </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row (click)="openWrestlerModal(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>

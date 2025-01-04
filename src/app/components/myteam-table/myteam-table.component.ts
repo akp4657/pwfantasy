@@ -11,7 +11,7 @@ import { ConstantsService } from 'src/app/services/constants.service';
 })
 export class MyTeamTableComponent implements AfterViewInit {
   today_date = new Date().toLocaleDateString();
-  displayedColumns: string[] = ['work yesterday', 'to be done today', 'obstacles'];
+  displayedColumns: string[] = ['name', 'promotion', 'division','total'];
   dataSource = new MatTableDataSource([]);
 
   selectedUserID: any = undefined;
@@ -21,6 +21,7 @@ export class MyTeamTableComponent implements AfterViewInit {
   gameService: GameService;
   user: any;
   id: any = null;
+  teamName: any = "My Team"
 
   
   public now: Date = new Date();
@@ -30,21 +31,13 @@ export class MyTeamTableComponent implements AfterViewInit {
 
   ngOnInit(): void {
     this.id = ConstantsService.getID();
-
-    if(this.id) {
-      this.setMyTeamTable(this.id)
-    }
+    this.setMyTeamTable(this.id)
   }
 
   setMyTeamTable(id: any) {
-    // this.userService.getUsers().subscribe((data: any) => {
-    //   let user = data.users.filter((u: any) => u.Slack_ID == this.selectedUserID)[0]
-    //   let task_strings = user.Task_String
-    //   this.dataSource = new MatTableDataSource(task_strings);
-    // });
-
-    this.gameService.getTeam(this.id).subscribe((data: any) => {
-      console.log(data)
+    this.gameService.getTeam(this.id).subscribe((res: any) => {
+      this.teamName = res.data.Team_Name;
+      this.dataSource = new MatTableDataSource(res.data.Team);
     })
   }
 

@@ -38,7 +38,7 @@ export class GameService {
             user: wresObj.user_id,
             wrestler_id: wresObj.wrestler_id
         }
-        const url = `${this.api_url}/team`;
+        const url = `${this.api_url}/draft`;
         return this.networkService.httpPut(url, body);
     }
 

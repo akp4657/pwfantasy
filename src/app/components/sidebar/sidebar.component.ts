@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { ConstantsService } from 'src/app/services/constants.service';
 import { UserService } from 'src/app/services/user.service';
-import { LoginSignupModalComponent } from 'src/app/modals/submission-checklist-modal/login-signup-modal.component';
+import { LoginSignupModalComponent } from 'src/app/modals/login-signup-modal/login-signup-modal.component';
 
 
 

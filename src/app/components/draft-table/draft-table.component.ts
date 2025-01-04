@@ -12,7 +12,7 @@ import { ConstantsService } from 'src/app/services/constants.service';
 })
 export class DraftTableComponent implements AfterViewInit {
   today_date = new Date().toLocaleDateString();
-  displayedColumns: string[] = ['work yesterday', 'to be done today', 'obstacles'];
+  displayedColumns: string[] = ['name', 'promotion','cost', 'division', 'total', 'draft'];
   dataSource = new MatTableDataSource([]);
 
   selectedUserID: any = undefined;
@@ -43,15 +43,35 @@ export class DraftTableComponent implements AfterViewInit {
   }
 
   setWrestlersTable() {
-    // this.userService.getUsers().subscribe((data: any) => {
-    //   let user = data.users.filter((u: any) => u.Slack_ID == this.selectedUserID)[0]
-    //   let task_strings = user.Task_String
-    //   this.dataSource = new MatTableDataSource(task_strings);
-    // });
-    this.gameService.getWrestlers().subscribe((data: any) => {
-      console.log(data)
-      this.wrestlers = data.data
-      console.log(this.wrestlers)
+    this.gameService.getWrestlers().subscribe((res: any) => {
+      console.log(res)
+      let fullWrestlers = res.data
+
+      this.gameService.getTeam(this.id).subscribe((team_res: any) => {
+        let myTeam = team_res.data.Team;
+
+        this.wrestlers = fullWrestlers.map((wrestler: any) => ({
+          ...wrestler,
+          Drafted: myTeam.some((draftedWrestler: any) => draftedWrestler._id === wrestler._id),
+        }));
+
+        this.dataSource = new MatTableDataSource(this.wrestlers);
+      })
+    })
+  }
+
+  draftWrestler(wrestler: any) {
+    console.log(wrestler)
+    let userObj = {
+      user_id: this.id,
+      wrestler_id: wrestler._id
+    }
+
+    this.gameService.draftWrestler(userObj).subscribe((res: any) => {
+      if(res.success) {
+        //console.log(res)
+        window.location.reload();
+      }
     })
   }
 

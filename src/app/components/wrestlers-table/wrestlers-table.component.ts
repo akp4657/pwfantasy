@@ -11,7 +11,7 @@ import { ConstantsService } from 'src/app/services/constants.service';
 })
 export class WrestlersTableComponent implements AfterViewInit {
   today_date = new Date().toLocaleDateString();
-  displayedColumns: string[] = ['work yesterday', 'to be done today', 'obstacles'];
+  displayedColumns: string[] = ['name', 'promotion', 'division','total'];
   dataSource = new MatTableDataSource([]);
 
   selectedUserID: any = undefined;
@@ -37,14 +37,14 @@ export class WrestlersTableComponent implements AfterViewInit {
   }
 
   setWrestlersTable() {
-    // this.userService.getUsers().subscribe((data: any) => {
-    //   let user = data.users.filter((u: any) => u.Slack_ID == this.selectedUserID)[0]
-    //   let task_strings = user.Task_String
-    //   this.dataSource = new MatTableDataSource(task_strings);
-    // });
-    this.gameService.getWrestlers().subscribe((data: any) => {
-      console.log(data)
+    this.gameService.getWrestlers().subscribe((res: any) => {
+      console.log(res)
+      this.dataSource = new MatTableDataSource(res.data);
     })
+  }
+
+  openWrestlerModal(wrestler: any) {
+    console.log(wrestler)
   }
 
   ngOnDestroy(): void {
