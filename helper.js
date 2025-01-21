@@ -1,6 +1,7 @@
 import dotenv from 'dotenv'
 dotenv.config();
 import axios from 'axios';
+import fs from 'fs';
 
 let slackToken;
 let to = {};
@@ -22,7 +23,17 @@ export const getAccessToken = async function() {
           }
         });
     
-        const accessToken = response.data;
+        const accessToken = response.data.access_token;
+
+        // Update the .env file
+        const envConfig = dotenv.parse(fs.readFileSync('.env'));
+        envConfig.ACCESS_TOKEN = accessToken;
+        const newEnvContent = Object.entries(envConfig).map(([key, value]) => `${key}=${value}`).join('\n');
+        fs.writeFileSync('.env', newEnvContent);
+
+        // Reload process.env
+        dotenv.config();
+        console.log('New Access Token --', process.env.ACCESS_TOKEN);
         console.log('New Access Token:', accessToken);
         //return accessToken;
       } catch (error) {

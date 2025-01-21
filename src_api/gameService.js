@@ -31,11 +31,11 @@ models.wrestler = _wrestler;
  * @returns 
  * @method POST
  */
-export const updatePoints = async function(req, res) {
+export const updatePoints = async function() {
     try {
         let response = await axios.post(worksheet, new URLSearchParams({
             method: 'worksheet.records.fetch',
-            worksheet_id: worksheet_id
+            worksheet_id: `${worksheet_id}#`
         }), {headers: zoho_headers})
     
         let filteredData = response.data.records.filter(row => row.Name && row.Name.trim() !== '')
@@ -73,21 +73,12 @@ export const updatePoints = async function(req, res) {
                 )
             } catch(err) {
                 console.log(err)
-                return res.status(500).send({
-                    data: err
-                });
             }
         }
 
         await updateTeams();
-        return res.status(200).send({
-            success: true
-        });
     } catch(err) {
         console.log(err)
-        return res.status(500).send({
-            data: err
-        });
     }
 }
 
