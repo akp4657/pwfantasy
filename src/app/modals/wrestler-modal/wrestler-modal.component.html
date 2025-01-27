@@ -1,0 +1,43 @@
+<div class="modal-holder" (click)="closeModal(true)"></div>
+<div class="modal">
+    <div class="modal-header">
+        {{wrestler.Name}} - {{wrestler.Promotion}}
+        <img src="{{IMG_X}}" class="x-button" (click)="closeModal(false)">
+    </div>
+    <div class="modal-body">
+        <div class="half-input">
+            <label>Last Show: {{wrestler.Show_Date}}</label>
+        </div>
+        <br>
+        <div class="half-input">
+            <label>Match Stats</label>
+            <div>Finisher: {{wrestler.Finisher}}</div>
+            <div>Pin: {{wrestler.Pin}}</div>
+            <div>Kickout: {{wrestler.Finisher}}</div>
+            <div>Pinfall/Submission: {{wrestler.Pinfall_Submission_KO}}</div>
+            <div>Interferance: {{wrestler.Interferance}}</div>
+            <div>DQ: {{wrestler.DQ}}</div>
+            <div>Win: {{wrestler.Win}}</div>
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="half-input">
+        </div>
+        <div class="half-input">
+            <label>Show Stats</label>
+            <div>Match: {{wrestler.Match}}</div>
+            <div>Social Media: {{wrestler.Social_Media}}</div>
+            <div>Commentary: {{wrestler.Commentary}}</div>
+            <div>Turn: {{wrestler.Turn}}</div>
+            <div>Character Change: {{wrestler.Gimmick_Change}}</div>
+            <div>Segment: {{wrestler.Segment}}</div>
+            <div>Crossover: {{wrestler.Crossover}}</div>
+            <div>Return: {{wrestler.Return}}</div>
+        </div>
+    </div>
+    <div class="modal-body">
+        <div class="half-input">
+            <div>Total: {{wrestler.Total}}</div>
+        </div>
+    </div>
+</div>

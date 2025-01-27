@@ -18,6 +18,7 @@ import { MyTeamTableComponent } from './components/myteam-table/myteam-table.com
 import { HomeTableComponent } from  './components/home-table/home-table.component'
 import { HttpClientModule } from '@angular/common/http';
 import { LoginSignupModalComponent } from './modals/login-signup-modal/login-signup-modal.component';
+import { WrestlerModalComponent } from './modals/wrestler-modal/wrestler-modal.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -42,7 +43,8 @@ import { MatSortModule } from '@angular/material/sort';
     DraftTableComponent,
     MyTeamTableComponent,
     HomeTableComponent,
-    LoginSignupModalComponent
+    LoginSignupModalComponent,
+    WrestlerModalComponent
   ],
 
   imports: [

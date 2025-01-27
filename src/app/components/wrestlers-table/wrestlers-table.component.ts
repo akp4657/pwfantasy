@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { GameService } from 'src/app/services/game.service';
 import { ConstantsService } from 'src/app/services/constants.service';
+import { WrestlerModalComponent } from 'src/app/modals/wrestler-modal/wrestler-modal.component';
 
 @Component({
   selector: 'app-wrestlers-table',
@@ -31,20 +32,28 @@ export class WrestlersTableComponent implements AfterViewInit {
   ngOnInit(): void {
 
     this.setWrestlersTable()
-    // if(this.id) {
-    //   this.setWrestlerTable(this.id)
-    // }
+
+    // Refresh table data
+    setInterval(() => {
+      this.setWrestlersTable();
+    }, 60000);
   }
 
   setWrestlersTable() {
     this.gameService.getWrestlers().subscribe((res: any) => {
-      console.log(res)
+      console.log("We in")
       this.dataSource = new MatTableDataSource(res.data);
     })
   }
 
   openWrestlerModal(wrestler: any) {
-    console.log(wrestler)
+    const modal = this.modalHolder.createComponent(WrestlerModalComponent)
+    
+    modal.instance.wrestler = wrestler;
+    modal.instance.close.subscribe(res => {
+      console.log(res);
+      this.modalHolder.clear();
+    });
   }
 
   ngOnDestroy(): void {
