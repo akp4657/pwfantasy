@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
+import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { DraftComponent } from './pages/draft/draft.component';
 import { MyTeamComponent } from './pages/myteam/myteam.component';
 import { WrestlersComponent } from './pages/wrestlers/wrestlers.component';
@@ -44,7 +45,8 @@ import { MatSortModule } from '@angular/material/sort';
     MyTeamTableComponent,
     HomeTableComponent,
     LoginSignupModalComponent,
-    WrestlerModalComponent
+    WrestlerModalComponent,
+    WelcomeComponent
   ],
 
   imports: [

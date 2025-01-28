@@ -20,9 +20,7 @@ models.user = _user;
 import _wrestler from '../models/wrestler.js';
 models.wrestler = _wrestler;
 
-// TODO: Display the user's wrestlers in a table along with their points
-// This will be default to the user's landing page, but linking through the leaderboard
-// allows others to view that table
+// TODO: Add/Drop System
 
 /**
  * Updates points from the Zoho sheet. This is a job that will run every 5-10 minutes
@@ -162,7 +160,9 @@ export const getWrestler = async function(req, res) {
  */
 export const getWrestlers = async function(req, res) {
     try {
-        let wrestle = await models.wrestler.find({})
+        let wrestle = await models.wrestler.find({});
+
+        wrestle.sort((a, b) => b.Total - a.Total);
 
         return res.status(200).send({
             success: true,
@@ -304,7 +304,7 @@ export const getAllTeams = async function(req,res) {
             })
         }
 
-        // Sort descendingr
+        // Sort descending
         allTeams.sort((a, b) => b.Total - a.Total);
 
         return res.status(200).send({

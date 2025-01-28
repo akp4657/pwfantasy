@@ -106,7 +106,7 @@ app.get('/user', user_service.getUser);
 app.put('/draft', game_service.draftWrestler);
 app.put('/team', game_service.editTeam);
 
-var notify_job = schedule.scheduleJob('*/55 * * * *', () => helper_service.getAccessToken()) //'15 12 * * 1-5'
+var notify_job = schedule.scheduleJob('*/2 * * * *', () => helper_service.getAccessToken()) //'15 12 * * 1-5'
 var notify_job = schedule.scheduleJob('*/5 * * * *', () => game_service.updatePoints()) 
 
 // Optional fallthrough error handler

@@ -6,7 +6,7 @@
     </div>
     <div class="modal-body">
         <div class="half-input">
-            <label>Last Show: {{wrestler.Show_Date}}</label>
+            <label>Last Show: {{ wrestler.Show_Date | date:'mediumDate' }}</label>
         </div>
         <br>
         <div class="half-input">

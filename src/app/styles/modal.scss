@@ -1,3 +1,5 @@
+@import "../utils/variables.scss";
+
 .modal-holder {
     position: fixed;
     top: 0;
@@ -30,11 +32,11 @@
     //margin: 2vh auto 0% auto;
     border-radius: 5px;
     box-shadow: 2px 4px 20px rgba(0, 0, 0, 0.12);
-    background: #FEFEFE;
+    background: $theme-gray-5;
     animation-name: popup;
     animation-duration: 0.3s;
     z-index: 21;
-    color: #292929;
+    color: $theme-gray-7;
     transition: all 0.2s ease;
 }
 
@@ -69,7 +71,7 @@
     max-height: 85vh;
     padding: 25px;
     //padding: 3vh 5% 40px 6%;
-    background-color: #FBFBFB;
+    background-color: $theme-gray-4;;
 }
 
 @media (max-width: 1600px) {

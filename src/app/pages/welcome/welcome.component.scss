@@ -1,0 +1,96 @@
+@import "../../utils/variables.scss";
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: $theme-gray-3;
+}
+
+header {
+    background-color: $theme-color-dark-1;
+    color: white;
+    padding: 20px;
+    padding-top: 55px;
+    text-align: center;
+}
+
+section {
+    margin: 20px;
+    max-width: 60%;
+    margin: auto;
+}
+
+.category {
+    margin-bottom: 20px;
+}
+
+.category h2 {
+    background-color: $theme-color-light-1;
+    color: white;
+    padding: 10px;
+}
+
+.category ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.category ul li {
+    margin: 10px 0;
+}
+
+.category ul li span {
+    font-weight: bold;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+.intro {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.intro h1 {
+    font-size: 2em;
+    color: $theme-gray-4;
+}
+
+.intro p {
+    font-size: 1.2em;
+    color: $theme-gray-3;
+}
+
+.content {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.content h2 {
+    color: #333;
+}
+
+.faq-item {
+    margin-bottom: 15px;
+}
+
+.faq-item h3 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.faq-item p {
+    font-size: 16px;
+    color: #333;
+}
