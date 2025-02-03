@@ -18,6 +18,7 @@ export class LoginSignupModalComponent implements OnInit {
   password: string = '';
   email: string = '';
   isSignup: boolean = false;
+  title: string = 'Login'
   
   constructor(
     private userService: UserService
@@ -28,6 +29,7 @@ export class LoginSignupModalComponent implements OnInit {
 
   toggleSignup() {
     this.isSignup = !this.isSignup;
+    this.title = this.isSignup ? 'Sign Up' : 'Login'
   }
 
   login() {

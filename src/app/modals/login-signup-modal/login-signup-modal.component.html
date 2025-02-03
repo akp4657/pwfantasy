@@ -1,20 +1,20 @@
 <div class="modal-holder" (click)="closeModal(true)"></div>
 <div class="modal">
     <div class="modal-header">
-        Login
+        {{title}}
         <img src="{{IMG_X}}" class="x-button" (click)="closeModal(true)">
     </div>
     <form class="modal-body">
         <!-- Conditional Form Content -->
         <div *ngIf="!isSignup; else signupForm">
-            <div class="half-input">
+            <div class="input-field half-input">
                 <label for="username">Username</label>
-                <input id="username" name="username" type="text" [(ngModel)]="username" required>
+                <input class="input" id="username" name="username" type="text" [(ngModel)]="username" required>
             </div>
     
-            <div class="half-input">
+            <div class="input-field half-input" style="margin-top: 12px">
                 <label for="password">Password</label>
-                <input id="password" name="password" type="password" [(ngModel)]="password" required>
+                <input class="input" id="password" name="password" type="password" [(ngModel)]="password" required>
             </div>
 
             <div class="button-holder">
@@ -25,19 +25,19 @@
                     Login
                 </div>
                 <div class="switch-button" id="signupSwitch" (click)="toggleSignup()">
-                    Don't have an account? Sign up
+                    Don't have an account?<br>Sign up
                 </div>
             </div>
         </div>
     
         <!-- Signup Form (Triggered by isSignup) -->
         <ng-template #signupForm>
-            <div class="half-input">
+            <div class="input-field half-input">
                 <label for="username">Username</label>
                 <input id="username" name="username" type="text" [(ngModel)]="username" required>
             </div>
     
-            <div class="half-input">
+            <div class="input-field half-input" style="margin-top: 12px">
                 <label for="password">Password</label>
                 <input id="password" name="password" type="password" [(ngModel)]="password" required>
             </div>
@@ -50,7 +50,7 @@
                     Sign Up
                 </div>
                 <div class="switch-button" id="loginSwitch" (click)="toggleSignup()">
-                    Already have an account? Login
+                    Already have an account?<br>Login
                 </div>
             </div>
         </ng-template>

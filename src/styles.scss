@@ -23,6 +23,19 @@ button, table {
     font-family: "Poppins", "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
 }
 
+input {
+    padding: 12px 16px;
+    font-size: 16px;
+    border-radius: 20px;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+label {
+    font-weight: 500;
+    font-size: 18px;
+}
+
 .basic-flex {
     display: flex;
     justify-content: center;

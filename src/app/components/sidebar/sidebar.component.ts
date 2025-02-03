@@ -38,6 +38,7 @@ export class SidebarComponent implements OnInit{
 
     modal.instance.close.subscribe(res => {
       if(res.success) window.location.reload();
+      this.modalHolder.clear();
     });
   }
 
