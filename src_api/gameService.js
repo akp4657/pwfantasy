@@ -242,7 +242,37 @@ export const draftWrestler = async function(req, res) {
             error: err
         });
     }
+}
 
+/**
+ * Draft wrestler to a user's team
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ * @method PUT
+ */
+export const dropWrestler = async function(req, res) {
+    const userID = req.body.user;
+    const wrestlerID = req.body.wrestler_id;
+
+    let user = await models.user.findOne({_id: userID})
+    let wrestler = await models.wrestler.findOne({_id: wrestlerID})
+
+    try {
+        user.Budget += wrestler.Cost;
+        user.Team.pull(wrestler);
+        await user.save();
+        return res.status(200).send({
+            success: true,
+            data: user
+        });
+    } catch(err) {
+        console.log(err)
+        return res.status(400).send({
+            success: false,
+            error: err
+        });
+    }
 }
 
 /**

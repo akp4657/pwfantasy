@@ -47,15 +47,17 @@ export class MyTeamTableComponent implements AfterViewInit {
     })
   }
 
-    openWrestlerModal(wrestler: any) {
-      const modal = this.modalHolder.createComponent(WrestlerModalComponent)
-      
-      modal.instance.wrestler = wrestler;
-      modal.instance.close.subscribe(res => {
-        console.log(res);
-        this.modalHolder.clear();
-      });
-    }
+  openWrestlerModal(wrestler: any) {
+    const modal = this.modalHolder.createComponent(WrestlerModalComponent)
+    
+    modal.instance.wrestler = wrestler;
+    modal.instance.myTeam = true;
+    modal.instance.id = this.id
+    modal.instance.close.subscribe(res => {
+      console.log(res);
+      this.modalHolder.clear();
+    });
+  }
 
   ngOnDestroy(): void {
   }

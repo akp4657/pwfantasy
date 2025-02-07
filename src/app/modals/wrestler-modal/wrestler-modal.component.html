@@ -40,4 +40,13 @@
             <div>Total: {{wrestler.Total}}</div>
         </div>
     </div>
+
+    <div *ngIf="myTeam" class="modal-body">
+        <button 
+          mat-raised-button 
+          color="primary" 
+          (click)="dropWrestler(wrestler)">
+          Drop
+        </button>
+    </div>
 </div>

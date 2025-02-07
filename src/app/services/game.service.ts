@@ -42,6 +42,15 @@ export class GameService {
         return this.networkService.httpPut(url, body);
     }
 
+    dropWrestler(wresObj: any) {
+        const body = {
+            user: wresObj.user_id,
+            wrestler_id: wresObj.wrestler_id
+        }
+        const url = `${this.api_url}/drop`;
+        return this.networkService.httpPut(url, body);
+    }
+
     getTeam(user_id: any) {
         const url = `${this.api_url}/team?user=${user_id}`;
         return this.networkService.httpGet(url);

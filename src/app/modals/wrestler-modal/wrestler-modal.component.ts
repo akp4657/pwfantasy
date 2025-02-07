@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ConstantsService } from 'src/app/services/constants.service';
 import { UserService } from 'src/app/services/user.service';
+import { GameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-edit-user-modal',
@@ -15,13 +16,19 @@ export class WrestlerModalComponent implements OnInit {
   IMG_X = ConstantsService.IMG_X;
 
   wrestler: any;
+  myTeam: boolean = false;
+  id: any;
+  gameService: GameService;
   
   constructor(
-    private userService: UserService
-  ) { }
+    private userService: UserService,
+    gameService: GameService
+  ) {
+    this.gameService = gameService;
+   }
 
   async ngOnInit() {
-    console.log(this.wrestler)
+    //console.log(this.wrestler)
   }
 
 
@@ -32,6 +39,20 @@ export class WrestlerModalComponent implements OnInit {
 
   saveToStorage(user_id: number) {
     ConstantsService.setUserID(user_id.toString());
+  }
+  dropWrestler(wrestler: any) {
+    console.log(wrestler)
+    let userObj = {
+      user_id: this.id,
+      wrestler_id: wrestler._id
+    }
+
+    this.gameService.dropWrestler(userObj).subscribe((res: any) => {
+      if(res.success) {
+        //console.log(res)
+        window.location.reload();
+      }
+    })
   }
 
 }
