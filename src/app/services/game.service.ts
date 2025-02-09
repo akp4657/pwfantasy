@@ -24,11 +24,13 @@ export class GameService {
         return this.networkService.httpGet(url);
     }
 
-    editUser(teamObj: any) {
+    editTeam(teamObj: any) {
         const body = {
             user: teamObj.user_id,
             team_name: teamObj.team_name
         }
+
+        console.log(body)
         const url = `${this.api_url}/team`;
         return this.networkService.httpPut(url, body);
     }

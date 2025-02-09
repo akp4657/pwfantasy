@@ -1,0 +1,25 @@
+<div class="modal-holder" (click)="closeModal(true)"></div>
+<div class="modal">
+    <div class="modal-header">
+        Edit Team Name
+        <img src="{{IMG_X}}" class="x-button" (click)="closeModal(true)">
+    </div>
+    <form class="modal-body">
+        <!-- Conditional Form Content -->
+        <div>
+            <div class="input-field half-input">
+                <label for="teamName">Team Name</label>
+                <input class="input" id="teamName" name="teamName" type="text" [(ngModel)]="teamname" required>
+            </div>
+
+            <div class="button-holder">
+                <div class="cancel-button" id="cancel" (click)="closeModal(true)">
+                    Cancel
+                </div>
+                <div class="confirm-button" id="submit" (click)="editTeamName()">
+                    Change Name
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -107,6 +107,14 @@ td {
   //background-color: #52595e
 }
 
+.title {
+  cursor: pointer;
+}
+
+.title:hover {
+  color: $theme-gray-3;
+}
+
 mat-table {
   z-index: -800;
   background-color: $theme-gray-7;

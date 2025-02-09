@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GameService } from 'src/app/services/game.service';
 import { ConstantsService } from 'src/app/services/constants.service';
 import { WrestlerModalComponent } from 'src/app/modals/wrestler-modal/wrestler-modal.component';
+import { EditTeamModalComponent } from 'src/app/modals/edit-team-modal/edit-team-modal.component';
 
 @Component({
   selector: 'app-myteam-table',
@@ -54,9 +55,20 @@ export class MyTeamTableComponent implements AfterViewInit {
     modal.instance.myTeam = true;
     modal.instance.id = this.id
     modal.instance.close.subscribe(res => {
-      console.log(res);
       this.modalHolder.clear();
     });
+  }
+
+  openEditTeamModal() {
+    const modal = this.modalHolder.createComponent(EditTeamModalComponent);
+
+    modal.instance.id = this.id;
+    modal.instance.teamname = this.teamName;
+    modal.instance.close.subscribe(res => {
+      console.log(res);
+      this.modalHolder.clear();
+      window.location.reload();
+    })
   }
 
   ngOnDestroy(): void {
