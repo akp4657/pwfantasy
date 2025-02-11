@@ -7,9 +7,7 @@ import cookieSession from 'cookie-session';
 import * as user_service from './userService.js';
 import * as game_service from './gameService.js';
 import * as helper_service from './helper.js';
-import path from 'path';
 import mongo from '../models/mongo.js';
-import fs from 'fs';
 import schedule from 'node-schedule';
 
 
@@ -38,16 +36,6 @@ app.use(
 // Initialize Passport
 app.use(passport.initialize());
 app.use(passport.session());
-
-
-import http_server from 'http'
-if(route == undefined) {
-  http_server.createServer(app);
-} else {
-  parent_app = express();
-  parent_app.use("/" + route, app);
-  http_server.createServer(parent_app);
-}
 
 // body parser set up
 app.use(bodyParser.urlencoded({ 
@@ -87,6 +75,7 @@ app.use(function onError(err, req, res, next) {
   res.end(res.sentry + "\n");
 });
 
-app.listen(port, () => {
-    console.log(`Listening on port ${port}`);
-});
+// Export the app as a handler function for Vercel
+export default (req, res) => {
+  app(req, res);
+};
