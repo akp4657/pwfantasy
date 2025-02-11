@@ -92,20 +92,20 @@ app.use(bodyParser.json({
 
 
 // Endpoints for FE
-app.post('/signup', user_service.signup);
-app.post('/login', user_service.login);
-app.post('/sheet', game_service.updatePoints);
+app.post('/api/signup', user_service.signup);
+app.post('/api/login', user_service.login);
+app.post('/api/sheet', game_service.updatePoints);
 
-app.get('/wrestler', game_service.getWrestler);
-app.get('/wrestler/all', game_service.getWrestlers);
-app.get('/team', game_service.getTeam);
-app.get('/team/all', game_service.getAllTeams);
-app.get('/authorize', helper_service.getAccessToken);
-app.get('/user', user_service.getUser);
+app.get('/api/wrestler', game_service.getWrestler);
+app.get('/api/wrestler/all', game_service.getWrestlers);
+app.get('/api/team', game_service.getTeam);
+app.get('/api/team/all', game_service.getAllTeams);
+app.get('/api/authorize', helper_service.getAccessToken);
+app.get('/api/user', user_service.getUser);
 
-app.put('/draft', game_service.draftWrestler);
-app.put('/drop', game_service.dropWrestler);
-app.put('/team', game_service.editTeam);
+app.put('/api/draft', game_service.draftWrestler);
+app.put('/api/drop', game_service.dropWrestler);
+app.put('/api/team', game_service.editTeam);
 
 //var notify_job = schedule.scheduleJob('*/2 * * * *', () => helper_service.getAccessToken()) //'15 12 * * 1-5'
 //var notify_job = schedule.scheduleJob('*/5 * * * *', () => game_service.updatePoints()) 
