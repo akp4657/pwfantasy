@@ -10,7 +10,6 @@
   padding-right: 45px;
   font-size: 20px;
   font-weight: 600;
-  color: #6d6d6d;
 
   .header {
     display: flex;
@@ -31,10 +30,6 @@
       display: inline-flex;
       align-items: center;
     }
-
-    .data-length-text {
-      color: #6d6d6d;
-    }
   }
 }
 
@@ -52,8 +47,7 @@ table {
   padding-left: 45px;
   padding-right: 45px;
   margin-bottom: 45px;
-  background-color: $theme-gray-7;
-  color: $theme-gray-3;
+  background-color: $theme-gray-0;
 }
 
 th {
@@ -82,12 +76,10 @@ td {
 
 .mat-cell {
   padding: 7px;
-  color: $theme-gray-3;
 }
 
 .mat-header-cell {
   padding-left: 10px;
-  color: $theme-gray-3;
 }
 
 .center-column{
@@ -112,7 +104,7 @@ td {
 }
 
 .title:hover {
-  color: $theme-gray-3;
+  color: $theme-color;
 }
 
 mat-table {
@@ -121,7 +113,7 @@ mat-table {
 }
 
 .mat-row:hover {
-  background-color: $theme-gray-6;
+  background-color: $theme-color-light-8;
   cursor: pointer;
 }
 

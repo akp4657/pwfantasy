@@ -28,21 +28,21 @@ h2 {padding: 1rem;}
 mat-toolbar{
   position:fixed;
   top:0;
-  background-color: $theme-gray-8;
+  background-color: $theme-gray-2;
   height: $topbar-height;
   z-index: 2;
 }
 
 mat-sidenav-container {
   height:100%;
-  background-color: $theme-gray-7;
+  background-color: $theme-gray-0;
 
 }
 
 // Move the content down so that it won't be hidden by the toolbar
 mat-sidenav {
   padding-top: 130px;
-  background-color: $theme-gray-8;
+  background-color: $theme-gray-2;
   @media screen and (min-width: 600px) {
     padding-top: 130px;
   }
