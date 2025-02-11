@@ -61,6 +61,4 @@ app.put('/api/drop', game_service.dropWrestler);
 app.put('/api/team', game_service.editTeam);
 
 // Export the Express app as a handler function for Vercel
-export default (req, res) => {
-  app(req, res); // This passes requests to Express
-};
+module.exports = app;
