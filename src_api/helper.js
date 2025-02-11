@@ -3,9 +3,6 @@ dotenv.config();
 import axios from 'axios';
 import fs from 'fs';
 
-let slackToken;
-let to = {};
-
 const currentEnv = process.env.CURRENT || 'dev'
 
 const clientId = process.env.CLIENT_ID;

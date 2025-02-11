@@ -1,14 +1,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
-import * as config from '../config.js';
+import * as config from './config.js';
 import * as bcrypt from 'bcrypt-nodejs';
-import queryString from 'query-string';
-import mongoose from 'mongoose';
-import { ObjectId } from 'mongodb'
-import {authenticate} from '@google-cloud/local-auth';
-import {google} from 'googleapis';
-import path from 'path'
-import axios from 'axios'
 
 // Mongoose DB
 let models = {};
