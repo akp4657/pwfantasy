@@ -1,4 +1,4 @@
-import * as config from '../api/config.js';
+import * as config from '../src_api/config.js';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 dotenv.config();

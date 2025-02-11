@@ -4,9 +4,9 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import passport from 'passport';
 import cookieSession from 'cookie-session';
-import * as user_service from './userService.js';
-import * as game_service from './gameService.js';
-import * as helper_service from './helper.js';
+import * as user_service from '../src_api/userService.js';
+import * as game_service from '../src_api/gameService.js';
+import * as helper_service from '../src_api/helper.js';
 import mongo from '../models/mongo.js';
 import schedule from 'node-schedule';
 
