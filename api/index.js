@@ -1,20 +1,12 @@
 import * as dotenv from 'dotenv';
 dotenv.config();
-// @ts-ignore
 import express from 'express';
-// @ts-ignore
 import bodyParser from 'body-parser';
-// @ts-ignore
 import passport from 'passport';
-// @ts-ignore
 import cookieSession from 'cookie-session';
-// @ts-ignore
-import * as user_service from './userService.js';
-// @ts-ignore
-import * as game_service from './gameService.js';
-// @ts-ignore
-import * as helper_service from './helper.js';
-// @ts-ignore
+import * as user_service from '../src_api/userService.js';
+import * as game_service from '../src_api/gameService.js';
+import * as helper_service from '../src_api/helper.js';
 import mongo from '../models/mongo.js';
 //import schedule from 'node-schedule';
 
@@ -29,7 +21,7 @@ let parent_app;
 // Enable CORS for all routes (dev)
 app.use(cors());
 
-mongo.connectToServer(function (err: any, client: any) {
+mongo.connectToServer(function (err, client) {
   if (err) console.log(err)
 });
 
@@ -73,13 +65,13 @@ app.put('/api/drop', game_service.dropWrestler);
 app.put('/api/team', game_service.editTeam);
 
 
-app.get("/", (req: any, res: any) => res.send("Express on Vercel"));
+//app.get("/", (req, res) => res.send("Express on Vercel"));
 
 //var notify_job = schedule.scheduleJob('*/2 * * * *', () => helper_service.getAccessToken()) //'15 12 * * 1-5'
 //var notify_job = schedule.scheduleJob('*/5 * * * *', () => game_service.updatePoints()) 
 
 // Optional fallthrough error handler
-app.use(function onError(err: any, req: any, res: any, next: any) {
+app.use(function onError(err, req, res, next) {
   // The error id is attached to `res.sentry` to be returned
   // and optionally displayed to the user for support.
   res.statusCode = 500;
@@ -89,3 +81,5 @@ app.use(function onError(err: any, req: any, res: any, next: any) {
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
+
+export default app;
