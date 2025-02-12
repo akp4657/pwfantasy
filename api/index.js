@@ -48,12 +48,6 @@ app.use(bodyParser.json({
   extended: true
 }));
 
-app.use(express.static(path.join(__dirname, 'dist')));
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
-});
-
-
 // Endpoints for FE
 app.post('/api/signup', user_service.signup);
 app.post('/api/login', user_service.login);
