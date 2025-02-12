@@ -8,6 +8,7 @@ import * as user_service from '../src_api/userService.js';
 import * as game_service from '../src_api/gameService.js';
 import * as helper_service from '../src_api/helper.js';
 import mongo from '../models/mongo.js';
+import path from 'path';
 //import schedule from 'node-schedule';
 
 // @ts-ignore
@@ -46,6 +47,11 @@ app.use(bodyParser.json({
   limit: '200mb',
   extended: true
 }));
+
+app.use(express.static(path.join(__dirname, 'dist')));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+});
 
 
 // Endpoints for FE
