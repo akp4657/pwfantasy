@@ -12,6 +12,7 @@ export class GameService {
 
     constructor(private networkService: NetworkService) {
         this.api_url = ConstantsService.getApiUrl();
+        console.log(this.api_url)
     }
 
     getWrestler(_id: string) {
