@@ -4,10 +4,10 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import passport from 'passport';
 import cookieSession from 'cookie-session';
-import * as user_service from '../src_api/userService.js';
-import * as game_service from '../src_api/gameService.js';
-import * as helper_service from '../src_api/helper.js';
-import mongo from '../models/mongo.js';
+import * as user_service from './src_api/userService.js'
+import * as game_service from './src_api/gameService.js';
+import * as helper_service from './src_api/helper.js';
+import mongo from './models/mongo.js';
 import path from 'path';
 //import schedule from 'node-schedule';
 
@@ -48,28 +48,21 @@ app.use(bodyParser.json({
   extended: true
 }));
 
-app.use(express.static(path.join(__dirname, 'dist')));
-
 // Endpoints for FE
-app.post('/api/signup', user_service.signup);
-app.post('/api/login', user_service.login);
-app.post('/api/sheet', game_service.updatePoints);
+app.post('/signup', user_service.signup);
+app.post('/login', user_service.login);
+app.post('/sheet', game_service.updatePoints);
 
-app.get('/api/wrestler', game_service.getWrestler);
-app.get('/api/wrestler/all', game_service.getWrestlers);
-app.get('/api/team', game_service.getTeam);
+app.get('/wrestler', game_service.getWrestler);
+app.get('/wrestler/all', game_service.getWrestlers);
+app.get('/team', game_service.getTeam);
+app.get('/team/all', game_service.getAllTeams);
+app.get('/authorize', helper_service.getAccessToken);
+app.get('/user', user_service.getUser);
 
-//app.get('/api/team/all', game_service.getAllTeams);
-app.get('/api/team/all', (req, res) => {
-  res.send('Team API is working'); // Simple response
-});
-
-app.get('/api/authorize', helper_service.getAccessToken);
-app.get('/api/user', user_service.getUser);
-
-app.put('/api/draft', game_service.draftWrestler);
-app.put('/api/drop', game_service.dropWrestler);
-app.put('/api/team', game_service.editTeam);
+app.put('/draft', game_service.draftWrestler);
+app.put('/drop', game_service.dropWrestler);
+app.put('/team', game_service.editTeam);
 
 
 //app.get("/", (req, res) => res.send("Express on Vercel"));
