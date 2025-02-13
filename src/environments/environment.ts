@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  api_url: 'https://www.fantasygraps.com/api',
+  api_url: 'localhost:4000',
 };
 
 /*
