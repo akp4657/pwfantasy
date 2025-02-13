@@ -48,6 +48,8 @@ app.use(bodyParser.json({
   extended: true
 }));
 
+app.use(express.static(path.join(__dirname, 'dist')));
+
 // Endpoints for FE
 app.post('/api/signup', user_service.signup);
 app.post('/api/login', user_service.login);
@@ -56,7 +58,12 @@ app.post('/api/sheet', game_service.updatePoints);
 app.get('/api/wrestler', game_service.getWrestler);
 app.get('/api/wrestler/all', game_service.getWrestlers);
 app.get('/api/team', game_service.getTeam);
-app.get('/api/team/all', game_service.getAllTeams);
+
+//app.get('/api/team/all', game_service.getAllTeams);
+app.get('/api/team/all', (req, res) => {
+  res.send('Team API is working'); // Simple response
+});
+
 app.get('/api/authorize', helper_service.getAccessToken);
 app.get('/api/user', user_service.getUser);
 
