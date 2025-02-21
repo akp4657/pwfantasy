@@ -66,7 +66,7 @@ app.put('/team', game_service.editTeam);
 
 
 //app.get("/", (req, res) => res.send("Express on Vercel"));
-var notify_job = schedule.scheduleJob('/*57 * * * *', () => helper_service.getAccessToken()) //'15 12 * * 1-5'
+var notify_job = schedule.scheduleJob('0 * * * *', () => helper_service.getAccessToken()) //'15 12 * * 1-5'
 var notify_job = schedule.scheduleJob('*/5 * * * *', () => game_service.updatePoints()) 
 
 // Optional fallthrough error handler
