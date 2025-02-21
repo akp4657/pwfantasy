@@ -9,8 +9,6 @@ const zoho_headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
 };
 
-console.log(zoho_headers)
-
 // Mongoose DB
 let models = {};
 import _user from '../models/user.js';

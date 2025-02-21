@@ -22,18 +22,34 @@ export const getAccessToken = async function() {
     
         const accessToken = response.data.access_token;
 
-        // Update the .env file
-        const envConfig = dotenv.parse(fs.readFileSync('.env'));
-        envConfig.ACCESS_TOKEN = accessToken;
-        const newEnvContent = Object.entries(envConfig).map(([key, value]) => `${key}=${value}`).join('\n');
-        await fs.writeFileSync('.env', newEnvContent);
+        await updateRenderEnv(process.env.RENDER_SERVICE_ID, accessToken)
 
         // Reload process.env
         await dotenv.config();
-        console.log('Env Access Token --', process.env.ACCESS_TOKEN);
-        console.log('New Access Token:', accessToken);
+
         //return accessToken;
       } catch (error) {
         console.error('Error fetching new access token:', error.response ? error.response.data : error.message);
       }
 }
+
+async function updateRenderEnv(serviceId, accessToken) {
+  try {
+
+    let obj = JSON.stringify({
+      value: accessToken,
+    })
+    const response = await axios.put(
+      `https://api.render.com/v1/services/${serviceId}/env-vars/ACCESS_TOKEN`, obj,
+      {
+        headers: {
+          'Authorization': `Bearer ${process.env.RENDER_API_KEY}`,
+        },
+      }
+    );
+    console.log('Updated environment variable:', response.data);
+  } catch (error) {
+    console.error('Error updating environment variable:', error.response ? error.response.data : error.message);
+  }
+}
+
