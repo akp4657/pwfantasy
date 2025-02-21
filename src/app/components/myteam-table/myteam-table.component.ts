@@ -24,6 +24,8 @@ export class MyTeamTableComponent implements AfterViewInit {
   user: any;
   id: any = null;
   teamName: any = "My Team"
+  otherUser: Boolean = false;
+  queryId: any;
 
   
   public now: Date = new Date();
@@ -33,12 +35,32 @@ export class MyTeamTableComponent implements AfterViewInit {
 
   ngOnInit(): void {
     this.id = ConstantsService.getID();
-    this.setMyTeamTable(this.id)
+    this.otherUser = false;
 
-    // Refresh table data
-    setInterval(() => {
-      this.setMyTeamTable(this.id);
-    }, 60000);
+    this.route.queryParams.subscribe(params => {
+      if(params['user_id']) {
+        this.otherUser = true;
+        this.queryId = params['user_id']
+      }
+    })
+
+    if(this.otherUser && (this.queryId !== this.id)) {
+      this.setMyTeamTable(this.queryId)
+  
+      // Refresh table data
+      setInterval(() => {
+        this.setMyTeamTable(this.queryId);
+      }, 60000);
+    } else {
+      this.otherUser = false;
+      this.setMyTeamTable(this.id)
+
+      // Refresh table data
+      setInterval(() => {
+        this.setMyTeamTable(this.id);
+      }, 60000);
+    }
+    
   }
 
   setMyTeamTable(id: any) {
@@ -60,12 +82,12 @@ export class MyTeamTableComponent implements AfterViewInit {
   }
 
   openEditTeamModal() {
+    if(this.otherUser) return;
     const modal = this.modalHolder.createComponent(EditTeamModalComponent);
 
     modal.instance.id = this.id;
     modal.instance.teamname = this.teamName;
     modal.instance.close.subscribe(res => {
-      console.log(res);
       this.modalHolder.clear();
       window.location.reload();
     })

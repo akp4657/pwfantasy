@@ -6,8 +6,6 @@ import { ConstantsService } from 'src/app/services/constants.service';
 import { UserService } from 'src/app/services/user.service';
 import { LoginSignupModalComponent } from 'src/app/modals/login-signup-modal/login-signup-modal.component';
 
-
-
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -28,8 +26,6 @@ export class SidebarComponent implements OnInit{
 
   ngOnInit(): void {
     this.loggedIn = ConstantsService.loggedIn();
-    console.log(this.loggedIn)
-    console.log(this.id)
   }
 
 

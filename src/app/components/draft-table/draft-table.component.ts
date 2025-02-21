@@ -44,7 +44,6 @@ export class DraftTableComponent implements AfterViewInit {
 
   setWrestlersTable() {
     this.gameService.getWrestlers().subscribe((res: any) => {
-      console.log(res)
       let fullWrestlers = res.data
 
       this.gameService.getTeam(this.id).subscribe((team_res: any) => {
@@ -61,7 +60,6 @@ export class DraftTableComponent implements AfterViewInit {
   }
 
   draftWrestler(wrestler: any) {
-    console.log(wrestler)
     let userObj = {
       user_id: this.id,
       wrestler_id: wrestler._id

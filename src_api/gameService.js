@@ -135,7 +135,6 @@ export const getWrestler = async function(req, res) {
             _id: wrestlerID
         })
 
-        console.log(wrestler)
         return res.status(200).send({
             success: true,
             data: wrestler
@@ -323,6 +322,7 @@ export const getAllTeams = async function(req,res) {
             let totalSum = u.Team.reduce((sum, t) => sum + t.Total, 0);
 
             allTeams.push({
+                user_id: u._id,
                 Owner: u.Username,
                 Team_Name: u.Team_Name,
                 Team: mappedTeam,

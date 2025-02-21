@@ -41,7 +41,6 @@ export class WrestlersTableComponent implements AfterViewInit {
 
   setWrestlersTable() {
     this.gameService.getWrestlers().subscribe((res: any) => {
-      console.log("We in")
       this.dataSource = new MatTableDataSource(res.data);
     })
   }
@@ -51,7 +50,6 @@ export class WrestlersTableComponent implements AfterViewInit {
     
     modal.instance.wrestler = wrestler;
     modal.instance.close.subscribe(res => {
-      console.log(res);
       this.modalHolder.clear();
     });
   }

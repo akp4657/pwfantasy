@@ -12,7 +12,6 @@ export class GameService {
 
     constructor(private networkService: NetworkService) {
         this.api_url = ConstantsService.getApiUrl();
-        console.log(this.api_url)
     }
 
     getWrestler(_id: string) {
@@ -30,8 +29,6 @@ export class GameService {
             user: teamObj.user_id,
             team_name: teamObj.team_name
         }
-
-        console.log(body)
         const url = `${this.api_url}/team`;
         return this.networkService.httpPut(url, body);
     }

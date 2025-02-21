@@ -32,7 +32,6 @@ export class ConstantsService {
 
   static getUserData() {
     const user_str = sessionStorage.getItem(USERS);
-    console.log(user_str)
     if (user_str) {
       const user_json: any = JSON.parse(user_str);
       return user_json;

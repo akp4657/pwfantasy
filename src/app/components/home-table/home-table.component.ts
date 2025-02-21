@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GameService } from 'src/app/services/game.service';
 import { MatSort } from '@angular/material/sort';
 import { ConstantsService } from 'src/app/services/constants.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home-table',
@@ -24,7 +25,7 @@ export class HomeTableComponent implements AfterViewInit {
 
   
   public now: Date = new Date();
-  constructor(private resolver: ComponentFactoryResolver, gameService: GameService, private route: ActivatedRoute) {
+  constructor(private resolver: ComponentFactoryResolver, public router: Router, gameService: GameService, private route: ActivatedRoute) {
     this.gameService = gameService;
   }
 
@@ -36,6 +37,14 @@ export class HomeTableComponent implements AfterViewInit {
     this.gameService.getAllTeams().subscribe((res: any) => {
       this.dataSource = new MatTableDataSource(res.data);
     })
+  }
+
+  navigateToTeamPage(row: any) {
+    this.router.navigate([`/myTeam`], {
+      queryParams: {
+        user_id: row.user_id
+      }
+    });
   }
 
   ngOnDestroy(): void {

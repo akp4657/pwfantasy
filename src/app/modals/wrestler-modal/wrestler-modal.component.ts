@@ -33,7 +33,6 @@ export class WrestlerModalComponent implements OnInit {
 
 
   closeModal(data: any) {
-    console.log('Closed')
     this.close.emit(data);
   }
 
@@ -41,7 +40,6 @@ export class WrestlerModalComponent implements OnInit {
     ConstantsService.setUserID(user_id.toString());
   }
   dropWrestler(wrestler: any) {
-    console.log(wrestler)
     let userObj = {
       user_id: this.id,
       wrestler_id: wrestler._id
