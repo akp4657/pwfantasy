@@ -33,6 +33,10 @@
   }
 }
 
+.data-length-text {
+  color: $theme-color-dark-4;
+}
+
 @keyframes reveal-text {
   from {
     width: 0;
