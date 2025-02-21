@@ -34,7 +34,7 @@ export const signup = async function(req, res) {
             Password: hash,
             Budget: 500,
             Salt: salt,
-            Team_Name: '',
+            Team_Name: 'My Team',
             Team: [],
             Email_List: false,
         });
@@ -59,7 +59,6 @@ export const login = async function (req, res) {
         if(user) {
             try {
                 let dcrypt = bcrypt.compareSync(password, user.Password);
-                console.log(dcrypt)
                 if (!dcrypt) {
                     return res.status(401).send({
                         success: false,

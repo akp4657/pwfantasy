@@ -26,11 +26,11 @@ export const getAccessToken = async function() {
         const envConfig = dotenv.parse(fs.readFileSync('.env'));
         envConfig.ACCESS_TOKEN = accessToken;
         const newEnvContent = Object.entries(envConfig).map(([key, value]) => `${key}=${value}`).join('\n');
-        fs.writeFileSync('.env', newEnvContent);
+        await fs.writeFileSync('.env', newEnvContent);
 
         // Reload process.env
-        dotenv.config();
-        console.log('New Access Token --', process.env.ACCESS_TOKEN);
+        await dotenv.config();
+        console.log('Env Access Token --', process.env.ACCESS_TOKEN);
         console.log('New Access Token:', accessToken);
         //return accessToken;
       } catch (error) {

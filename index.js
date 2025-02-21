@@ -9,7 +9,7 @@ import * as game_service from './src_api/gameService.js';
 import * as helper_service from './src_api/helper.js';
 import mongo from './models/mongo.js';
 import path from 'path';
-//import schedule from 'node-schedule';
+import schedule from 'node-schedule';
 
 // @ts-ignore
 import cors from 'cors'
@@ -66,9 +66,8 @@ app.put('/team', game_service.editTeam);
 
 
 //app.get("/", (req, res) => res.send("Express on Vercel"));
-
-//var notify_job = schedule.scheduleJob('*/2 * * * *', () => helper_service.getAccessToken()) //'15 12 * * 1-5'
-//var notify_job = schedule.scheduleJob('*/5 * * * *', () => game_service.updatePoints()) 
+var notify_job = schedule.scheduleJob('*/57 * * * *', () => helper_service.getAccessToken()) //'15 12 * * 1-5'
+var notify_job = schedule.scheduleJob('*/5 * * * *', () => game_service.updatePoints()) 
 
 // Optional fallthrough error handler
 app.use(function onError(err, req, res, next) {
