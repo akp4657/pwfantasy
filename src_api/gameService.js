@@ -4,10 +4,7 @@ import axios from 'axios';
 
 const worksheet = process.env.WORKSHEET_URL
 const worksheet_id = process.env.WORKSHEET_ID
-const zoho_headers = {
-    'Authorization': `Zoho-oauthtoken ${process.env.ACCESS_TOKEN}`,
-    'Content-Type': 'application/x-www-form-urlencoded',
-};
+
 
 // Mongoose DB
 let models = {};
@@ -27,6 +24,11 @@ models.wrestler = _wrestler;
  */
 export const updatePoints = async function() {
     try {
+        const zoho_headers = {
+            'Authorization': `Zoho-oauthtoken ${process.env.ACCESS_TOKEN}`,
+            'Content-Type': 'application/x-www-form-urlencoded',
+        };
+        
         let response = await axios.post(worksheet, new URLSearchParams({
             method: 'worksheet.records.fetch',
             worksheet_id: `${worksheet_id}#`
