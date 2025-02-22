@@ -40,11 +40,13 @@ export const signup = async function(req, res) {
         });
         await new_user.save();
         return res.status(200).send({
+            success: true,
             User: new_user
         });
     } catch(err) {
         console.log(err)
         return res.status(500).send({
+            success: false,
             message: "Contact Admin"
         });
     }
@@ -113,6 +115,7 @@ export const getUser = async function(req, res) {
         });
     } catch(err) {
         return res.status(500).send({
+            success: false,
             data: err
         });
     }

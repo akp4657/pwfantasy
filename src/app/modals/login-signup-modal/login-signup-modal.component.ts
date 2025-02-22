@@ -51,6 +51,7 @@ export class LoginSignupModalComponent implements OnInit {
     }
 
     this.userService.signup(userObj).subscribe((data: any) => {
+      console.log(data)
       this.saveToStorage(data.User._id) 
       this.closeModal(data)
     })

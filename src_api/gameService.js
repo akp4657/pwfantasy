@@ -290,7 +290,7 @@ export const getTeam = async function(req, res) {
         return res.status(200).send({
             success: true,
             data: {
-                Team_Name: user.Team_Name,
+                Team_Name: user.Team_Name ? user.Team_Name : "My Team",
                 Team: user.Team
             }
         });
