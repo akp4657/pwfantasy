@@ -25,7 +25,8 @@ export const getAccessToken = async function() {
         await updateRenderEnv(process.env.RENDER_SERVICE_ID, accessToken)
 
         // Reload process.env
-        await dotenv.config();
+        //await dotenv.config();
+        process.env.ACCESS_TOKEN = accessToken;
 
         //return accessToken;
       } catch (error) {
