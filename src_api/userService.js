@@ -40,7 +40,7 @@ export const signup = async function(req, res) {
         });
         await new_user.save();
         return res.status(200).send({
-            user: new_user
+            User: new_user
         });
     } catch(err) {
         console.log(err)

@@ -24,6 +24,8 @@ models.wrestler = _wrestler;
  */
 export const updatePoints = async function() {
     try {
+        // Initialize the new env variable
+        await dotenv.config()
         const zoho_headers = {
             'Authorization': `Zoho-oauthtoken ${process.env.ACCESS_TOKEN}`,
             'Content-Type': 'application/x-www-form-urlencoded',
