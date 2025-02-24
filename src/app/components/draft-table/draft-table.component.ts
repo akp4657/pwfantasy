@@ -44,7 +44,8 @@ export class DraftTableComponent implements AfterViewInit {
 
   setWrestlersTable() {
     this.gameService.getWrestlers().subscribe((res: any) => {
-      let fullWrestlers = res.data
+      console.log(res.data)
+      let fullWrestlers = res.data.sort((a: any, b: any) => b.Cost - a.Cost)
 
       this.gameService.getTeam(this.id).subscribe((team_res: any) => {
         let myTeam = team_res.data.Team;
