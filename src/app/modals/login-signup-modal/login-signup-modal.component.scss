@@ -3,6 +3,10 @@
 .modal {
     width: 98%;
     max-width: 600px;
+    z-index: 9999 !important;
+    position: absolute !important;
+    display: block;
+    
 }
 
 .checklist-item {
