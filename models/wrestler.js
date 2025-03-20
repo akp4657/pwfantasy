@@ -38,7 +38,7 @@ const wrestlerSchema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
-    Kickout: {
+    Bell_Time: {
         type: Number,
         default: 0,
     },
@@ -55,10 +55,6 @@ const wrestlerSchema = new mongoose.Schema({
         default: 0,
     },
     Finisher: {
-        type: Number,
-        default: 0,
-    },
-    Pin: {
         type: Number,
         default: 0,
     },
