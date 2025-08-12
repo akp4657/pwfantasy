@@ -1,0 +1,58 @@
+.modal-container {
+  min-width: 500px;
+  max-width: 600px;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.half-width {
+  flex: 1;
+}
+
+.error-message {
+  color: #f44336;
+  font-size: 14px;
+  margin-top: 8px;
+  text-align: center;
+}
+
+mat-dialog-content {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+mat-dialog-actions {
+  padding: 16px 0;
+}
+
+button[type="submit"] {
+  min-width: 120px;
+}
+
+mat-spinner {
+  margin-right: 8px;
+}
+
+@media (max-width: 600px) {
+  .modal-container {
+    min-width: 90vw;
+    max-width: 90vw;
+  }
+  
+  .form-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .half-width {
+    width: 100%;
+  }
+}

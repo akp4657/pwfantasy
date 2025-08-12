@@ -1,0 +1,221 @@
+<div class="league-detail-container" *ngIf="league; else loadingSpinner">
+  <div class="page-header">
+    <div class="header-content">
+      <h1>{{ league.Name }}</h1>
+      <p class="league-description" *ngIf="league.Description">{{ league.Description }}</p>
+      <div class="league-meta">
+        <span class="meta-item">
+          <strong>Owner:</strong> {{ league.Owner?.Name || 'Unknown' }}
+        </span>
+        <span class="meta-item">
+          <strong>Members:</strong> {{ league.League_Members?.length || 0 }}/{{ league.Max_Members }}
+        </span>
+        <span class="meta-item">
+          <strong>Draft:</strong> {{ league.Draft_Day | date:'fullDate' }}
+        </span>
+        <span class="meta-item">
+          <strong>Season:</strong> {{ league.Season_Start | date:'shortDate' }} - {{ league.Season_End | date:'shortDate' || 'Ongoing' }}
+        </span>
+      </div>
+    </div>
+    
+    <div class="header-actions">
+      <button mat-raised-button color="accent" (click)="startDraft()" 
+              *ngIf="canStartDraft()">
+        Start Draft
+      </button>
+      <button mat-raised-button color="primary" [routerLink]="['/draft', league._id]"
+              *ngIf="league.Draft?.status === 'active'">
+        Go to Draft
+      </button>
+    </div>
+  </div>
+
+  <!-- Draft Status Banner -->
+  <div class="draft-status-banner" *ngIf="league.Draft?.status === 'active'">
+    <div class="draft-info">
+      <h3>Draft in Progress</h3>
+      <p>Current Pick: {{ getCurrentDrafter()?.team_name || 'Unknown' }}</p>
+      <div class="draft-progress">
+        <mat-progress-bar mode="determinate" [value]="getDraftProgress()"></mat-progress-bar>
+        <span class="progress-text">{{ league.Draft.picks?.length || 0 }} picks completed</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content Tabs -->
+  <mat-tab-group (selectedTabChange)="onTabChange($event)" [selectedIndex]="activeTab">
+    
+    <!-- Overview Tab -->
+    <mat-tab label="Overview">
+      <div class="tab-content">
+        <div class="overview-grid">
+          <mat-card class="overview-card">
+            <mat-card-header>
+              <mat-card-title>League Settings</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="setting-item">
+                <strong>Pool Type:</strong> 
+                <span>{{ getPoolTypeLabel(league.PoolType) }}</span>
+              </div>
+              <div class="setting-item">
+                <strong>League Type:</strong> 
+                <span>{{ league.League_Type | titlecase }}</span>
+              </div>
+              <div class="setting-item">
+                <strong>Draft Time Limit:</strong> 
+                <span>{{ league.Draft_Time_Limit || 60 }} seconds</span>
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+          <mat-card class="overview-card">
+            <mat-card-header>
+              <mat-card-title>Scoring Rules</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="scoring-item">
+                <strong>Win:</strong> {{ league.Scoring_Rules?.win || 10 }} pts
+              </div>
+              <div class="scoring-item">
+                <strong>Loss:</strong> {{ league.Scoring_Rules?.loss || 0 }} pts
+              </div>
+              <div class="scoring-item">
+                <strong>Draw:</strong> {{ league.Scoring_Rules?.draw || 5 }} pts
+              </div>
+              <div class="scoring-item">
+                <strong>Title Defense:</strong> {{ league.Scoring_Rules?.title_defense || 5 }} pts
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- Members Tab -->
+    <mat-tab label="Members">
+      <div class="tab-content">
+        <div class="members-grid">
+          <mat-card *ngFor="let member of league.League_Members" class="member-card">
+            <mat-card-header>
+              <mat-card-title>{{ member.team_name }}</mat-card-title>
+              <mat-card-subtitle>{{ member.user?.Name || 'Unknown User' }}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="member-info">
+                <span class="info-item">
+                  <strong>Joined:</strong> {{ member.join_date | date:'shortDate' }}
+                </span>
+                <span class="info-item">
+                  <strong>Team Score:</strong> {{ getTeamScore(member.user._id) }}
+                </span>
+                <span class="info-item">
+                  <strong>Wrestlers:</strong> {{ getTeamWrestlers(member.user._id).length }}
+                </span>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- Draft Tab -->
+    <mat-tab label="Draft">
+      <div class="tab-content">
+        <div class="draft-content">
+          <!-- Draft Order -->
+          <mat-card class="draft-order-card">
+            <mat-card-header>
+              <mat-card-title>Draft Order</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="draft-order" *ngIf="league.Draft?.order">
+                <div *ngFor="let userId of league.Draft.order; let i = index" 
+                     class="draft-position"
+                     [class.current-pick]="i === league.Draft.current_pick">
+                  <span class="position-number">{{ i + 1 }}</span>
+                  <span class="team-name">
+                    {{ getTeamNameByUserId(userId) }}
+                  </span>
+                  <span class="pick-status" *ngIf="i === league.Draft.current_pick">
+                    ON THE CLOCK
+                  </span>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+          <!-- Available Wrestlers -->
+          <mat-card class="wrestlers-card">
+            <mat-card-header>
+              <mat-card-title>Available Wrestlers ({{ getAvailableWrestlers().length }})</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="wrestlers-grid" *ngIf="league.Draft?.status === 'active'">
+                <div *ngFor="let wrestler of getAvailableWrestlers()" 
+                     class="wrestler-item"
+                     [class.selectable]="isUserTurn()"
+                     (click)="isUserTurn() ? makeDraftPick(wrestler._id) : null">
+                  <img [src]="wrestler.Image" [alt]="wrestler.Name" class="wrestler-image">
+                  <div class="wrestler-info">
+                    <h4>{{ wrestler.Name }}</h4>
+                    <p>{{ wrestler.Brand }}</p>
+                  </div>
+                </div>
+              </div>
+              <p *ngIf="league.Draft?.status !== 'active'">
+                Draft has not started yet or has completed.
+              </p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-tab>
+
+    <!-- Standings Tab -->
+    <mat-tab label="Standings">
+      <div class="tab-content">
+        <div class="standings-content">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>League Standings</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="standings-table">
+                <div class="standings-header">
+                  <span class="rank">Rank</span>
+                  <span class="team">Team</span>
+                  <span class="owner">Owner</span>
+                  <span class="score">Score</span>
+                  <span class="wrestlers">Wrestlers</span>
+                </div>
+                <div *ngFor="let member of league.League_Members; let i = index" 
+                     class="standings-row">
+                  <span class="rank">{{ i + 1 }}</span>
+                  <span class="team">{{ member.team_name }}</span>
+                  <span class="owner">{{ member.user?.Name || 'Unknown' }}</span>
+                  <span class="score">{{ getTeamScore(member.user._id) }}</span>
+                  <span class="wrestlers">{{ getTeamWrestlers(member.user._id).length }}</span>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+
+<!-- Loading Template -->
+<ng-template #loadingSpinner>
+  <div class="loading-container">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Loading league...</p>
+  </div>
+</ng-template>
+
+<!-- Error Message -->
+<div class="error-message" *ngIf="error">
+  {{ error }}
+</div>

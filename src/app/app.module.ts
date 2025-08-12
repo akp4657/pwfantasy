@@ -21,6 +21,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginSignupModalComponent } from './modals/login-signup-modal/login-signup-modal.component';
 import { EditTeamModalComponent } from './modals/edit-team-modal/edit-team-modal.component';
 import { WrestlerModalComponent } from './modals/wrestler-modal/wrestler-modal.component';
+import { LeagueModalComponent } from './modals/league-modal/league-modal.component';
+import { LeaguesComponent } from './pages/leagues/leagues.component';
+import { LeagueDetailComponent } from './pages/league-detail/league-detail.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -29,6 +32,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatListModule } from '@angular/material/list'; 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MatSortModule } from '@angular/material/sort';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -48,7 +63,10 @@ import { MatSortModule } from '@angular/material/sort';
     LoginSignupModalComponent,
     EditTeamModalComponent,
     WrestlerModalComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    LeaguesComponent,
+    LeagueDetailComponent,
+    LeagueModalComponent
   ],
 
   imports: [
@@ -65,7 +83,19 @@ import { MatSortModule } from '@angular/material/sort';
     MatToolbarModule,
     MatSidenavModule,
     MatListModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatDialogModule,
+    MatCardModule,
+    MatTabsModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    CommonModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

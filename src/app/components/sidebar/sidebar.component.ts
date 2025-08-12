@@ -1,10 +1,11 @@
-import { Component, OnInit, AfterViewInit, ComponentFactoryResolver, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { ConstantsService } from 'src/app/services/constants.service';
 import { UserService } from 'src/app/services/user.service';
 import { LoginSignupModalComponent } from 'src/app/modals/login-signup-modal/login-signup-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-sidebar',
@@ -16,10 +17,12 @@ export class SidebarComponent implements OnInit{
   loggedIn: boolean = false;
 
   userService: UserService;
-  @ViewChild('modalHolder', { read: ViewContainerRef, static: false })
-  modalHolder!: ViewContainerRef;
 
-  constructor(userService: UserService, public router: Router) {
+  constructor(
+    userService: UserService, 
+    public router: Router,
+    private dialog: MatDialog
+  ) {
     this.userService = userService;
     this.id = ConstantsService.getID()
   }
@@ -30,11 +33,15 @@ export class SidebarComponent implements OnInit{
 
 
   openLoginModal() {
-    const modal = this.modalHolder.createComponent(LoginSignupModalComponent)
+    const dialogRef = this.dialog.open(LoginSignupModalComponent, {
+      width: '400px',
+      disableClose: false
+    });
 
-    modal.instance.close.subscribe(res => {
-      if(res.success) window.location.reload();
-      this.modalHolder.clear();
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (result && result.success) {
+        window.location.reload();
+      }
     });
   }
 

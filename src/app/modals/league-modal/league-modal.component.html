@@ -1,0 +1,89 @@
+<div class="modal-container">
+  <h2 mat-dialog-title>{{ data?.league ? 'Edit League' : 'Create New League' }}</h2>
+  
+  <form (ngSubmit)="onSubmit()" #leagueForm="ngForm">
+    <mat-dialog-content>
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>League Name</mat-label>
+          <input matInput [(ngModel)]="leagueData.name" name="name" required>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Description</mat-label>
+          <textarea matInput [(ngModel)]="leagueData.description" name="description" rows="3"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Pool Type</mat-label>
+          <mat-select [(ngModel)]="leagueData.poolType" name="poolType" required>
+            <mat-option *ngFor="let type of poolTypes" [value]="type.value">
+              {{ type.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Max Members</mat-label>
+          <input matInput type="number" [(ngModel)]="leagueData.maxMembers" name="maxMembers" 
+                 min="2" max="20" required>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Draft Day</mat-label>
+          <input matInput [matDatepicker]="draftPicker" [(ngModel)]="leagueData.draftDay" 
+                 name="draftDay" required>
+          <mat-datepicker-toggle matSuffix [for]="draftPicker"></mat-datepicker-toggle>
+          <mat-datepicker #draftPicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>League Type</mat-label>
+          <mat-select [(ngModel)]="leagueData.leagueType" name="leagueType" required>
+            <mat-option *ngFor="let type of leagueTypes" [value]="type.value">
+              {{ type.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Season Start</mat-label>
+          <input matInput [matDatepicker]="seasonStartPicker" [(ngModel)]="leagueData.seasonStart" 
+                 name="seasonStart" required>
+          <mat-datepicker-toggle matSuffix [for]="seasonStartPicker"></mat-datepicker-toggle>
+          <mat-datepicker #seasonStartPicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="half-width">
+          <mat-label>Season End (Optional)</mat-label>
+          <input matInput [matDatepicker]="seasonEndPicker" [(ngModel)]="leagueData.seasonEnd" 
+                 name="seasonEnd">
+          <mat-datepicker-toggle matSuffix [for]="seasonEndPicker"></mat-datepicker-toggle>
+          <mat-datepicker #seasonEndPicker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="error-message" *ngIf="error">
+        {{ error }}
+      </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+      <button mat-button type="button" (click)="onCancel()" [disabled]="loading">
+        Cancel
+      </button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+        <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
+        <span *ngIf="!loading">{{ data?.league ? 'Update' : 'Create' }} League</span>
+      </button>
+    </mat-dialog-actions>
+  </form>
+</div>

@@ -1,17 +1,17 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ConstantsService } from 'src/app/services/constants.service';
 import { UserService } from 'src/app/services/user.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-edit-user-modal',
+  selector: 'app-login-signup-modal',
   templateUrl: './login-signup-modal.component.html',
   styleUrls: ['./login-signup-modal.component.scss']
 })
 export class LoginSignupModalComponent implements OnInit {
 
-  @Output() close = new EventEmitter<any>();
   IMG_X = ConstantsService.IMG_X;
 
   username: string = '';
@@ -21,7 +21,8 @@ export class LoginSignupModalComponent implements OnInit {
   title: string = 'Login'
   
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private dialogRef: MatDialogRef<LoginSignupModalComponent>
   ) { }
 
   async ngOnInit() {
@@ -58,7 +59,7 @@ export class LoginSignupModalComponent implements OnInit {
   }
 
   closeModal(data: any) {
-    this.close.emit(data);
+    this.dialogRef.close(data);
   }
 
   saveToStorage(user_id: number) {

@@ -1,0 +1,197 @@
+.leagues-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #e0e0e0;
+
+  h1 {
+    margin: 0;
+    color: #333;
+    font-size: 2.5rem;
+    font-weight: 300;
+  }
+}
+
+.leagues-content {
+  .league-section {
+    margin-bottom: 40px;
+
+    h2 {
+      color: #555;
+      font-size: 1.8rem;
+      font-weight: 400;
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #ddd;
+    }
+  }
+}
+
+.leagues-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 24px;
+}
+
+.league-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 8px;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  mat-card-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 16px;
+
+    mat-card-title {
+      font-size: 1.4rem;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    mat-card-subtitle {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 0.9rem;
+    }
+  }
+
+  mat-card-content {
+    padding: 20px;
+
+    p {
+      color: #666;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    .league-info {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .info-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid #f0f0f0;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        strong {
+          color: #333;
+          font-weight: 500;
+        }
+
+        span {
+          color: #666;
+        }
+      }
+    }
+  }
+
+  mat-card-actions {
+    padding: 16px 20px;
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    background: #fafafa;
+    border-top: 1px solid #e0e0e0;
+  }
+}
+
+.error-message {
+  background: #ffebee;
+  color: #c62828;
+  padding: 16px;
+  border-radius: 4px;
+  text-align: center;
+  margin: 20px 0;
+  border: 1px solid #ffcdd2;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: #666;
+
+  p {
+    margin-top: 16px;
+    font-size: 1.1rem;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .leagues-container {
+    padding: 16px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+
+    h1 {
+      font-size: 2rem;
+    }
+  }
+
+  .leagues-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .league-card {
+    mat-card-actions {
+      flex-direction: column;
+      gap: 8px;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .leagues-container {
+    padding: 12px;
+  }
+
+  .page-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .league-card {
+    mat-card-header {
+      padding: 12px;
+
+      mat-card-title {
+        font-size: 1.2rem;
+      }
+    }
+
+    mat-card-content {
+      padding: 16px;
+    }
+  }
+}

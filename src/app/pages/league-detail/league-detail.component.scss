@@ -1,0 +1,405 @@
+.league-detail-container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid #e0e0e0;
+
+  .header-content {
+    flex: 1;
+
+    h1 {
+      margin: 0 0 16px 0;
+      color: #333;
+      font-size: 2.5rem;
+      font-weight: 300;
+    }
+
+    .league-description {
+      color: #666;
+      font-size: 1.1rem;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .league-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+
+      .meta-item {
+        color: #555;
+        font-size: 0.95rem;
+
+        strong {
+          color: #333;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+}
+
+.draft-status-banner {
+  background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+
+  .draft-info {
+    h3 {
+      margin: 0 0 8px 0;
+      font-size: 1.4rem;
+      font-weight: 500;
+    }
+
+    p {
+      margin: 0 0 16px 0;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .draft-progress {
+      .progress-text {
+        display: block;
+        margin-top: 8px;
+        font-size: 0.9rem;
+        opacity: 0.8;
+      }
+    }
+  }
+}
+
+.tab-content {
+  padding: 24px 0;
+}
+
+// Overview Tab
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.overview-card {
+  .setting-item, .scoring-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f0f0f0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    strong {
+      color: #333;
+      font-weight: 500;
+    }
+
+    span {
+      color: #666;
+    }
+  }
+}
+
+// Members Tab
+.members-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.member-card {
+  .member-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+
+      strong {
+        color: #333;
+        font-weight: 500;
+      }
+
+      span {
+        color: #666;
+      }
+    }
+  }
+}
+
+// Draft Tab
+.draft-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 24px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.draft-order-card {
+  .draft-order {
+    .draft-position {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+      background: #f8f9fa;
+      border-left: 4px solid #dee2e6;
+
+      &.current-pick {
+        background: #e3f2fd;
+        border-left-color: #2196f3;
+        font-weight: 500;
+      }
+
+      .position-number {
+        background: #6c757d;
+        color: white;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        font-weight: 500;
+      }
+
+      .team-name {
+        flex: 1;
+        font-weight: 500;
+      }
+
+      .pick-status {
+        background: #ff9800;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 0.7rem;
+        font-weight: 500;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+
+.wrestlers-card {
+  .wrestlers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
+
+    .wrestler-item {
+      text-align: center;
+      padding: 12px;
+      border-radius: 8px;
+      border: 2px solid transparent;
+      transition: all 0.2s ease;
+      cursor: default;
+
+      &.selectable {
+        cursor: pointer;
+        border-color: #e0e0e0;
+
+        &:hover {
+          border-color: #2196f3;
+          background: #f5f5f5;
+          transform: translateY(-2px);
+        }
+      }
+
+      .wrestler-image {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 8px;
+      }
+
+      .wrestler-info {
+        h4 {
+          margin: 0 0 4px 0;
+          font-size: 0.9rem;
+          color: #333;
+        }
+
+        p {
+          margin: 0;
+          font-size: 0.8rem;
+          color: #666;
+        }
+      }
+    }
+  }
+}
+
+// Standings Tab
+.standings-content {
+  .standings-table {
+    .standings-header {
+      display: grid;
+      grid-template-columns: 60px 2fr 2fr 1fr 1fr;
+      gap: 16px;
+      padding: 16px;
+      background: #f8f9fa;
+      font-weight: 500;
+      color: #333;
+      border-bottom: 2px solid #dee2e6;
+    }
+
+    .standings-row {
+      display: grid;
+      grid-template-columns: 60px 2fr 2fr 1fr 1fr;
+      gap: 16px;
+      padding: 16px;
+      border-bottom: 1px solid #f0f0f0;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background: #f8f9fa;
+      }
+
+      &:nth-child(even) {
+        background: #fafafa;
+      }
+
+      .rank {
+        font-weight: 500;
+        color: #666;
+      }
+
+      .team {
+        font-weight: 500;
+        color: #333;
+      }
+
+      .owner {
+        color: #666;
+      }
+
+      .score {
+        font-weight: 500;
+        color: #2196f3;
+      }
+
+      .wrestlers {
+        color: #666;
+        text-align: center;
+      }
+    }
+  }
+}
+
+// Loading and Error States
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  color: #666;
+
+  p {
+    margin-top: 16px;
+    font-size: 1.1rem;
+  }
+}
+
+.error-message {
+  background: #ffebee;
+  color: #c62828;
+  padding: 16px;
+  border-radius: 4px;
+  text-align: center;
+  margin: 20px 0;
+  border: 1px solid #ffcdd2;
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .league-detail-container {
+    padding: 16px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    gap: 20px;
+
+    .header-content h1 {
+      font-size: 2rem;
+    }
+
+    .league-meta {
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .header-actions {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .draft-content {
+    grid-template-columns: 1fr;
+  }
+
+  .standings-table {
+    .standings-header,
+    .standings-row {
+      grid-template-columns: 50px 1.5fr 1.5fr 1fr;
+      gap: 12px;
+      padding: 12px;
+
+      .wrestlers {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .league-detail-container {
+    padding: 12px;
+  }
+
+  .page-header .header-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .overview-grid,
+  .members-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wrestlers-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  }
+}

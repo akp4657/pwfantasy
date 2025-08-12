@@ -1,6 +1,6 @@
-<ng-template #modalHolder></ng-template>
 <div class="sidebar-item link" (click)="navigateToPage('')">Home</div>
 <div class="sidebar-item link" (click)="navigateToPage('/leaderboard')">Leaderboard</div>
+<div class="sidebar-item link" (click)="navigateToPage('/leagues')">Leagues</div>
 <div class="sidebar-item link" *ngIf="loggedIn" (click)="navigateToPage('/myTeam')">My Team</div>
 <div class="sidebar-item link" *ngIf="loggedIn" (click)="navigateToPage('/draft')">Draft</div>
 <div class="sidebar-item link" (click)="navigateToPage('/wrestlers')">Wrestlers</div>
